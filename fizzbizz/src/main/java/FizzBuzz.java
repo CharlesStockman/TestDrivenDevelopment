@@ -6,7 +6,7 @@ public class FizzBuzz {
     private String convert(int number) {
         StringBuilder result = new StringBuilder();
         if ( number % 3 != 0 && number % 5 != 0 )
-            result.append(String.valueOf(number));
+            result.append(number);
         else {
             if (number % 3 == 0)
                 result.append("fizz");

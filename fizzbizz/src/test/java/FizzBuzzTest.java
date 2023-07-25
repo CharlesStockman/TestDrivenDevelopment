@@ -36,7 +36,7 @@ public class FizzBuzzTest {
     }
 
     private static Map<Integer, String> generateFizzBuzzOutput() {
-        StringBuffer answer = new StringBuffer("");
+        StringBuffer answer = new StringBuffer();
         Map<Integer, String> answers = new HashMap<>();
 
         answer.append("1\n");
