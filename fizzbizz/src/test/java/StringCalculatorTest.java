@@ -3,7 +3,8 @@ import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;
 import java.security.KeyStore;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class StringCalculatorTest {
 
@@ -19,10 +20,24 @@ public class StringCalculatorTest {
         Assertions.assertEquals(0, stringCalculator.add(","));
     }
 
+    @Test void  handle_input_is_newline() {
+        StringCalculator stringCalculator = new StringCalculator();
+        Assertions.assertEquals(0, stringCalculator.add("\n"));
+    }
+
+    @Test void handle_input_has_spaces_and_comma() {
+        StringCalculator stringCalculator = new StringCalculator();
+        Assertions.assertEquals(0, stringCalculator.add("    ,     "));
+
+    }
+
     @Test
     public void handle_input_has_2_commas_together() {
         StringCalculator stringCalculator = new StringCalculator();
-        Assertions.assertEquals(0, stringCalculator.add(",,"));
+
+        InvalidParameterException exception = Assertions.assertThrows(
+                InvalidParameterException.class, () -> stringCalculator.add(",,"));
+        Assertions.assertEquals(exception.getMessage(), "The 1st parameter cannot have a comma and no digit after");
     }
 
     @Test
@@ -40,7 +55,15 @@ public class StringCalculatorTest {
     @Test
     public void handle_input_is_one_number_and_comma() {
         StringCalculator stringCalculator = new StringCalculator();
-        Assertions.assertEquals(4, stringCalculator.add("4,"));
+        InvalidParameterException exception;
+
+        exception = Assertions.assertThrows(
+                InvalidParameterException.class, () -> stringCalculator.add("1,2,"));
+        Assertions.assertEquals(exception.getMessage(), "The 1st parameter cannot have a comma and no digit after");
+
+        exception = Assertions.assertThrows(
+                InvalidParameterException.class, () -> stringCalculator.add("1,2,   "));
+        Assertions.assertEquals(exception.getMessage(), "The 1st parameter cannot have a comma and no digit after");
     }
 
     @Test
@@ -53,6 +76,13 @@ public class StringCalculatorTest {
     public void handle_input_is_two_number() {
         StringCalculator stringCalculator = new StringCalculator();
         Assertions.assertEquals(10, stringCalculator.add("4,6"));
+    }
+
+
+    @Test
+    public void handle_input_separator_are_both_comma_and_newline() {
+        StringCalculator stringCalculator = new StringCalculator();
+        Assertions.assertEquals(21, stringCalculator.add("1,2\n3,4,5\n6"));
     }
 
     @Test
