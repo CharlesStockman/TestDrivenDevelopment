@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.security.KeyStore;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class StringCalculatorTest {
@@ -17,26 +19,27 @@ public class StringCalculatorTest {
     }
 
     @Test
-    public void handle_input_is_comma() throws IOException  {
+    public void handle_input_is_comma() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         Assertions.assertEquals(0, stringCalculator.add(","));
     }
 
-    @Test void  handle_input_is_newline() throws IOException  {
+    @Test
+    void handle_input_is_newline() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         InvalidParameterException exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("    2,3"));
         Assertions.assertEquals(
-                exception.getMessage(),"Parameter numbers cannot have spaces at the beginning or end of the string");
+                exception.getMessage(), "Parameter numbers cannot have spaces at the beginning or end of the string");
     }
 
     @Test
-    void handle_input_has_spaces_and_comma() throws IOException  {
+    void handle_input_has_spaces_and_comma() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         InvalidParameterException exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("    2,3"));
         Assertions.assertEquals(
-                exception.getMessage(),"Parameter numbers cannot have spaces at the beginning or end of the string");
+                exception.getMessage(), "Parameter numbers cannot have spaces at the beginning or end of the string");
 
     }
 
@@ -48,17 +51,17 @@ public class StringCalculatorTest {
         exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("   2,3    "));
         Assertions.assertEquals(
-                exception.getMessage(),"Parameter numbers cannot have spaces at the beginning or end of the string");
+                exception.getMessage(), "Parameter numbers cannot have spaces at the beginning or end of the string");
 
         exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("2,3    "));
         Assertions.assertEquals(
-                exception.getMessage(),"Parameter numbers cannot have spaces at the beginning or end of the string");
+                exception.getMessage(), "Parameter numbers cannot have spaces at the beginning or end of the string");
 
         exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("    2,3"));
         Assertions.assertEquals(
-                exception.getMessage(),"Parameter numbers cannot have spaces at the beginning or end of the string");
+                exception.getMessage(), "Parameter numbers cannot have spaces at the beginning or end of the string");
 
     }
 
@@ -69,51 +72,60 @@ public class StringCalculatorTest {
 
         InvalidParameterException exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add(",,"));
-        Assertions.assertEquals(exception.getMessage(), "Parameter numbers cannot start or end with a comma");
+        Assertions.assertEquals(exception.getMessage(), "Parameters cannot start or end with a delimiter");
     }
 
     @Test
-    public void handle_input_has_2_commas_together_with_valid_numbers() throws IOException  {
+    public void handle_input_has_2_commas_together_with_valid_numbers() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         InvalidParameterException exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("2,,3"));
         Assertions.assertEquals(
-                exception.getMessage(), "Invalid number -- <empty string>");
+                exception.getMessage(), "Delimiters must be separated by one delimiter only such as comma or newline");
     }
 
     @Test
-    public void handle_input_is_one_number() throws IOException  {
+    public void handle_input_is_one_number() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         Assertions.assertEquals(4, stringCalculator.add("4"));
     }
 
     @Test
-    public void handle_input_is_one_number_and_comma() throws IOException  {
+    public void handle_input_is_one_number_and_comma() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         InvalidParameterException exception;
 
         exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("1,"));
         Assertions.assertEquals(
-                exception.getMessage(), "Parameter numbers cannot start or end with a comma");
+                exception.getMessage(), "Parameters cannot start or end with a delimiter");
 
         exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add("1,"));
         Assertions.assertEquals(
-                exception.getMessage(), "Parameter numbers cannot start or end with a comma");
+                exception.getMessage(), "Parameters cannot start or end with a delimiter");
     }
 
     @Test
-    public void handle_input_is_comma_and_one_number() throws IOException  {
+    public void handle_input_is_comma_and_one_number() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         InvalidParameterException exception = Assertions.assertThrows(
                 InvalidParameterException.class, () -> stringCalculator.add(",4"));
         Assertions.assertEquals(
-                exception.getMessage(), "Parameter numbers cannot start or end with a comma");
+                exception.getMessage(), "Parameters cannot start or end with a delimiter");
     }
 
     @Test
-    public void handle_input_is_two_number() throws IOException  {
+    public void handle_input_when_there_is_no_number_between_delimiters() {
+        StringCalculator stringCalculator = new StringCalculator();
+        InvalidParameterException exception = Assertions.assertThrows(
+                InvalidParameterException.class, () -> stringCalculator.add("4,\n4"));
+        Assertions.assertEquals(
+                exception.getMessage(), "Delimiters must be separated by one delimiter only such as comma or newline");
+    }
+
+    @Test
+    public void handle_input_is_two_number() throws IOException {
         StringCalculator stringCalculator = new StringCalculator();
         Assertions.assertEquals(10, stringCalculator.add("4,6"));
     }
@@ -177,6 +189,7 @@ public class StringCalculatorTest {
         }
     }
 
+
     /**
      * Create a Map of inputs so we verify that the function can work with different number of inputs.
      *
@@ -198,4 +211,6 @@ public class StringCalculatorTest {
         return inputs;
 
     }
+
+
 }
