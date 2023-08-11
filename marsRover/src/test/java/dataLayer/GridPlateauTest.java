@@ -51,10 +51,8 @@ public class GridPlateauTest {
     @Test
     public void create_grid_with_normal_terrain_and_obstacle() {
 
-
-
         GridPlateau gridPlateau = new GridPlateau();
-        String[][] grid = gridPlateau.initialize(10,10, .8f );
+        String[][] grid = gridPlateau.initialize(10,10, .2f );
 
         for ( int index = 0; index < 10; index++ )  {
             System.out.println(Arrays.toString(grid[index]));
@@ -65,8 +63,6 @@ public class GridPlateauTest {
                 filter(action -> action.contentEquals("Normal")).
                 count();
 
-
-
         Assertions.assertEquals(80, countNormal);
 
         long countObstructed = Arrays.stream(grid).
@@ -76,8 +72,21 @@ public class GridPlateauTest {
 
         Assertions.assertEquals(20, countObstructed);
 
-
     }
 
+    @Test
+    public void create_grid_throw_exception_when_grid_is_all_obstacle() {
+        GridPlateau gridPlateau = new GridPlateau();
+        InvalidParameterException exception = Assertions.assertThrows(InvalidParameterException.class,
+                () -> gridPlateau.initialize(10,10,100));
+        Assertions.assertEquals(exception.getMessage(),
+                "Percentage of Obstacles can only be 99% or less.  One space is needed for the Rover");
+    }
 
+    @Test
+    public void create_grid_where_0_0_is_Not_Obstructed() {
+        GridPlateau gridPlateau = new GridPlateau();
+        String[][] grid = gridPlateau.initialize_where_0_0_is_noraml(10,10, .8f );
+        Assertions.assertEquals(grid[0][0], Terrian.Normal.name());
+    }
 }

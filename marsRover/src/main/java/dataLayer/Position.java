@@ -41,16 +41,16 @@ public class Position {
     public Position wrap(Integer maxX, Integer maxY) {
         Integer tmp_x = null;
         if ( x == -1 )
-            tmp_x = maxX;
-        else if ( x == 11 )
+            tmp_x = maxX -1;
+        else if ( x == maxX )
             tmp_x = 0;
         else
             tmp_x = x;
 
         Integer tmp_y = null;
         if ( y == -1 )
-            tmp_y = 10;
-        else if ( y == 11 )
+            tmp_y = maxY - 1;
+        else if ( y == maxY )
             tmp_y = 0;
         else
             tmp_y = y;

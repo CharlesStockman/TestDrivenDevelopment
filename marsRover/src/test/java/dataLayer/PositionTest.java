@@ -49,13 +49,13 @@ public class PositionTest {
     public void testWrapXOffLeftEdge() {
         Position position = new Position(-1, 5);
         position = position.wrap(10, 10 );
-        Assertions.assertEquals(position.getX(), 10);
+        Assertions.assertEquals(position.getX(), 9);
         Assertions.assertEquals(position.getY(), 5);
     }
 
     @Test
     public void testWrapXOffRightEdge() {
-        Position position = new Position(11, 5);
+        Position position = new Position(10, 5);
         position = position.wrap(10, 10 );
         Assertions.assertEquals(position.getX(), 0);
         Assertions.assertEquals(position.getY(), 5);
@@ -63,7 +63,7 @@ public class PositionTest {
 
     @Test
     public void testWrapYOffTopEdge() {
-        Position position = new Position(1, 11);
+        Position position = new Position(1, 10);
         position = position.wrap(10,10);
         Assertions.assertEquals(position.getX(), 1);
         Assertions.assertEquals(position.getY(), 0);
@@ -74,7 +74,7 @@ public class PositionTest {
         Position position = new Position(1, -1);
         position = position.wrap(10,10);
         Assertions.assertEquals(position.getX(), 1);
-        Assertions.assertEquals(position.getY(), 10);
+        Assertions.assertEquals(position.getY(), 9);
     }
 
 }
