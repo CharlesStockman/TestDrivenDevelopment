@@ -1,5 +1,6 @@
 package service;
 
+import dataLayer.GridPlateau;
 import dataLayer.Position;
 import dataLayer.Terrian;
 import org.example.CompassPoint;
@@ -8,23 +9,25 @@ import java.util.Stack;
 
 public class Rover {
 
-    Integer x;
-    Integer y;
-    Enum<CompassPoint> compassPoint;
-    String[][] grid;
+    private Integer x;
+    private Integer y;
+    private Enum<CompassPoint> compassPoint;
+    private GridPlateau gridPlateau;
+
+
 
     private String previous_position;
 
-    public Rover(String[][] grid) {
+    public Rover(GridPlateau gridPlateau) {
         this();
-        this.grid = grid;
+        this.gridPlateau = gridPlateau;
+
     }
 
     public Rover() {
         this.x = 0;
         this.y = 0;
         this.compassPoint = CompassPoint.N;
-        this.grid = null;
     }
 
     public String displayCoordinatesAndDirection() {
@@ -87,9 +90,8 @@ public class Rover {
                 y = position.getY();
             }
 
-            System.out.println("The next position is " + displayCoordinatesAndDirection());
-
-            if ( grid != null && grid[x][y] == Terrian.Obstructed.name()) {
+            Position position = new Position(x,y);
+            if ( gridPlateau != null && gridPlateau.isCellObstructed(position)) {
                 result =  "O:" +previous_position;
                 break;
             }
