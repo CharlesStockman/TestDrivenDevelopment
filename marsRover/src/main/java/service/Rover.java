@@ -2,10 +2,7 @@ package service;
 
 import dataLayer.GridPlateau;
 import dataLayer.Position;
-import dataLayer.Terrian;
 import org.example.CompassPoint;
-
-import java.util.Stack;
 
 public class Rover {
 

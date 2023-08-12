@@ -32,7 +32,6 @@ public class RoverTest {
 
     @Test
     public void inputMoveCommandsIsNullString() {
-        Rover rover = new Rover();
         NullPointerException exception =
                 Assertions.assertThrows(NullPointerException.class, () -> (new Rover()).move(null));
         Assertions.assertEquals(exception.getMessage(), "The input to the move function is null");
@@ -167,7 +166,7 @@ public class RoverTest {
         for ( int indexX = 0; indexX < x; indexX++)
             for ( int indexY = 0; indexY < y; indexY++  ) {
                 Position position = new Position(indexX,indexY);
-                if ( grid.isCellObstructed(position) == true )
+                if (grid.isCellObstructed(position))
                     return position;
             }
 

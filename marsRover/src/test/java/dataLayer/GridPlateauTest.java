@@ -1,11 +1,8 @@
 package dataLayer;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.awt.*;
 import java.security.InvalidParameterException;
-import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -14,8 +11,6 @@ public class GridPlateauTest {
     @Test
     public void create_grid_test() {
         GridPlateau gridPlateau = new GridPlateau();
-        int x=10;
-        int y=10;
 
         gridPlateau.initialize(10,10);
 
@@ -45,7 +40,7 @@ public class GridPlateauTest {
         for ( int indexX = 0; indexX < 10; indexX++)
             for(int indexY = 0; indexY < 10; indexY++ ) {
                 Position position = new Position(indexX, indexY);
-                if ( gridPlateau.isCellObstructed(position) == true)
+                if (gridPlateau.isCellObstructed(position))
                     fail(String.format("Tile is %s instead of %s for position (%d,%d",
                             Terrian.Obstructed.name(), Terrian.Normal, position.getX(), position.getY()));
             }
@@ -61,7 +56,7 @@ public class GridPlateauTest {
         int obstacle_tile_counter = 0;
         for (int indexX = 0; indexX < 10; indexX++)
             for (int indexY = 0; indexY < 10; indexY++) {
-                if (gridPlateau.isCellObstructed(new Position(indexX, indexY)) == true)
+                if (gridPlateau.isCellObstructed(new Position(indexX, indexY)))
                     obstacle_tile_counter++;
                 else
                     normal_tile_counter++;
@@ -84,7 +79,7 @@ public class GridPlateauTest {
     @Test
     public void create_grid_where_0_0_is_Not_Obstructed() {
         GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize_where_0_0_is_noraml(10,10, .8f );
+        gridPlateau.initialize_where_0_0_is_normal(10,10, .8f );
         assertEquals(false, gridPlateau.isCellObstructed(new Position(0,0)));
     }
 
@@ -137,7 +132,7 @@ public class GridPlateauTest {
     @Test
     public void gridSetTileWithNoInitializedGrid() {
         GridPlateau gridPlateau = new GridPlateau();
-        NullPointerException exception = (NullPointerException) assertThrows(
+        NullPointerException exception = assertThrows(
                 NullPointerException.class,
                 () -> gridPlateau.setTile(new Position(3,5 ), Terrian.Obstructed.name()));
         assertEquals(exception.getMessage(), "Cannot load from object array because \"this.grid\" is null");

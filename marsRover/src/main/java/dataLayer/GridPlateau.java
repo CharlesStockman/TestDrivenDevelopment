@@ -2,7 +2,6 @@ package dataLayer;
 
 import java.security.InvalidParameterException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class GridPlateau {
 
@@ -38,27 +37,24 @@ public class GridPlateau {
 
         Random random = new Random();
         for ( int index = 0; index < obstructured_max; index++) {
-            //Integer next_x = x_coords.get(index);
-            //Integer next_y = y_coords.get(index);
-
             boolean result = false;
             do {
-                Integer next_x = random.nextInt(x);
-                Integer next_y = random.nextInt(y);
+                int next_x = random.nextInt(x);
+                int next_y = random.nextInt(y);
 
-                if ( grid[next_x][next_y] == Terrian.Normal.name()) {
+                if (Objects.equals(grid[next_x][next_y], Terrian.Normal.name())) {
                     grid[next_x][next_y] = Terrian.Obstructed.name();
                     result = true;
                 }
-            } while (result == false);
+            } while (!result);
         }
     }
-    public void initialize_where_0_0_is_noraml(int x, int y, float percent_normal_terrian) {
+    public void initialize_where_0_0_is_normal(int x, int y, float percent_normal_terrian) {
         this.initialize(x,y, percent_normal_terrian);
-        if ( grid[0][0] == Terrian.Obstructed.name()) {
+        if (Objects.equals(grid[0][0], Terrian.Obstructed.name())) {
             for ( int index = 0; index < 10; index++) {
                 for ( int index2 = 0; index < 10; index++ ) {
-                    if ( grid[index][index2] == Terrian.Normal.name() ) {
+                    if (Objects.equals(grid[index][index2], Terrian.Normal.name())) {
                         grid[index][index2] = Terrian.Obstructed.name();
                         grid[0][0] = Terrian.Normal.name();
                         break;
@@ -69,18 +65,15 @@ public class GridPlateau {
     }
 
     public Boolean isCellObstructed(Position position ) {
-        Boolean result = grid[position.getX()][position.getY()] == Terrian.Obstructed.name();
-        return result;
+        return Objects.equals(grid[position.getX()][position.getY()], Terrian.Obstructed.name());
     }
 
     public Integer getLength() {
-        Integer length = ( grid == null ) ?  0 : grid.length;
-        return length;
+        return ( grid == null ) ?  0 : grid.length;
     }
 
     public Integer getWidth() {
-        Integer width = ( grid == null ) ? 0 : grid[0].length;
-        return width;
+        return ( grid == null ) ? 0 : grid[0].length;
     }
 
     public void setTile(Position position, String terrian ) {

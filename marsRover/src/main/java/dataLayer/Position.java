@@ -2,8 +2,8 @@ package dataLayer;
 
 public class Position {
 
-    private Integer x;
-    private Integer y;
+    private final Integer x;
+    private final Integer y;
 
     public Position(Integer x, Integer y) {
         this.x = x;
@@ -19,38 +19,34 @@ public class Position {
     }
 
     public Position moveVerticalUp() {
-        Position position = new Position(x, y + 1);
-        return position;
+        return new Position(x, y + 1);
     }
 
     public Position moveVerticalDown() {
-        Position position = new Position(x , y - 1);
-        return position;
+        return new Position(x , y - 1);
     }
 
     public Position moveHorizontalLeft() {
-        Position position = new Position(x - 1, y);
-        return position;
+        return new Position(x - 1, y);
     }
 
     public Position moveHorizontalRight() {
-        Position position = new Position(x + 1, y);
-        return position;
+        return new Position(x + 1, y);
     }
 
     public Position wrap(Integer maxX, Integer maxY) {
-        Integer tmp_x = null;
+        int tmp_x;
         if ( x == -1 )
             tmp_x = maxX -1;
-        else if ( x == maxX )
+        else if (x.equals(maxX))
             tmp_x = 0;
         else
             tmp_x = x;
 
-        Integer tmp_y = null;
+        int tmp_y;
         if ( y == -1 )
             tmp_y = maxY - 1;
-        else if ( y == maxY )
+        else if (y.equals(maxY))
             tmp_y = 0;
         else
             tmp_y = y;
