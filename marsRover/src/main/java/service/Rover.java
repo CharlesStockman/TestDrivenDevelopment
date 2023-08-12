@@ -9,8 +9,7 @@ import java.util.Stack;
 
 public class Rover {
 
-    private Integer x;
-    private Integer y;
+    private Position position;
     private Enum<CompassPoint> compassPoint;
     private GridPlateau gridPlateau;
 
@@ -25,13 +24,12 @@ public class Rover {
     }
 
     public Rover() {
-        this.x = 0;
-        this.y = 0;
+        this.position = new Position(0, 0);
         this.compassPoint = CompassPoint.N;
     }
 
     public String displayCoordinatesAndDirection() {
-        return String.format("%d:%d:%s", x , y , compassPoint);
+        return String.format("%d:%d:%s", position.getX() , position.getY() , compassPoint);
     }
 
     public String move(String input) {
@@ -64,33 +62,19 @@ public class Rover {
                 this.compassPoint = CompassPoint.N;
 
             if (c == 'M' && compassPoint == CompassPoint.N) {
-                Position position = new Position(x, y);
                 position = position.moveVerticalUp();
                 position = position.wrap(10,10);
-                x = position.getX();
-                y = position.getY();
             } else if (c == 'M' && compassPoint == CompassPoint.E) {
-
-                Position position = new Position(x, y);
                 position = position.moveHorizontalRight();
                 position = position.wrap(10,10);
-                x = position.getX();
-                y = position.getY();
             } else if (c == 'M' && compassPoint == CompassPoint.S) {
-                Position position = new Position(x, y);
                 position = position.moveVerticalDown();
                 position = position.wrap(10,10);
-                x = position.getX();
-                y = position.getY();
             } else if (c == 'M' && compassPoint == CompassPoint.W) {
-                Position position = new Position(x, y);
                 position = position.moveHorizontalLeft();
                 position = position.wrap(10,10);
-                x = position.getX();
-                y = position.getY();
             }
 
-            Position position = new Position(x,y);
             if ( gridPlateau != null && gridPlateau.isCellObstructed(position)) {
                 result =  "O:" +previous_position;
                 break;
