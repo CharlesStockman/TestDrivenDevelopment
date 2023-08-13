@@ -1,4 +1,4 @@
-package dataLayer;
+package common;
 
 public enum Terrian {
 

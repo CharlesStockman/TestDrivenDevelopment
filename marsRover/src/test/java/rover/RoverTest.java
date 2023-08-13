@@ -1,8 +1,8 @@
-package service;
+package rover;
 
-import dataLayer.GridPlateau;
-import dataLayer.Position;
-import dataLayer.Terrian;
+import gridPlateau.GridPlateau;
+import common.Position;
+import common.Terrian;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +21,7 @@ public class RoverTest {
         gridPlateau.initialize(10,10, .1f);
         gridPlateau.setTile(new Position(0,2 ), Terrian.Obstructed.name());
 
-        Assertions.assertEquals("O:0:1:N", (new Rover(gridPlateau)).move("NMM"));
+        Assertions.assertEquals("O:0:1:N", (new Rover(gridPlateau)).move("MM"));
     }
 
     @Test

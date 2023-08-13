@@ -1,4 +1,7 @@
-package dataLayer;
+package gridPlateau;
+
+import common.Position;
+import common.Terrian;
 
 import java.security.InvalidParameterException;
 import java.util.*;

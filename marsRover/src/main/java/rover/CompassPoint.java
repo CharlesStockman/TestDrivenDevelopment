@@ -1,4 +1,4 @@
-package org.example;
+package rover;
 
 public enum CompassPoint {
     N,

@@ -1,5 +1,6 @@
-package dataLayer;
+package gridPlateau;
 
+import common.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

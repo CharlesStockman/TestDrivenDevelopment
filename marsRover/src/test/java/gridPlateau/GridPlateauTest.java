@@ -1,5 +1,7 @@
-package dataLayer;
+package gridPlateau;
 
+import common.Position;
+import common.Terrian;
 import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;

@@ -1,8 +1,7 @@
-package service;
+package rover;
 
-import dataLayer.GridPlateau;
-import dataLayer.Position;
-import org.example.CompassPoint;
+import gridPlateau.GridPlateau;
+import common.Position;
 
 public class Rover {
 
