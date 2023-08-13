@@ -2,9 +2,10 @@ package rover;
 
 import gridPlateau.GridPlateau;
 import common.Position;
-import common.Terrian;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
 
 public class RoverTest {
 
@@ -18,8 +19,12 @@ public class RoverTest {
     public void inputMovePrintCellForNextObstacle() {
 
         GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize(10,10, .1f);
-        gridPlateau.setTile(new Position(0,2 ), Terrian.Obstructed.name());
+
+        Position position = new Position(0, 2);
+        ArrayList<Position> positions = new ArrayList<>();
+        positions.add(position);
+
+        gridPlateau.initializeCustom(10, 10, positions);
 
         Assertions.assertEquals("O:0:1:N", (new Rover(gridPlateau)).move("MM"));
     }
@@ -139,7 +144,7 @@ public class RoverTest {
     @Test
     public void gridWithNoObstacles() {
         GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize(10,10);
+        gridPlateau.initialize(10, 10);
         Rover rover = new Rover(gridPlateau);
         Assertions.assertEquals("2:3:N", rover.move("MMRMMLM"));
     }
@@ -147,7 +152,7 @@ public class RoverTest {
     @Test
     public void gridWihWrap() {
         GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize(10,10);
+        gridPlateau.initialize(10, 10);
         Rover rover = new Rover();
         Assertions.assertEquals("0:0:N", rover.move("MMMMMMMMMM"));
     }
@@ -155,21 +160,13 @@ public class RoverTest {
     @Test
     public void gridWithObstacle() {
         GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize(10,10, .1f);
-        gridPlateau.setTile(new Position(0,3 ), Terrian.Obstructed.name());
+        ArrayList<Position> positions = new ArrayList<>();
+        Position position = new Position(0, 3);
+        positions.add(position);
+
+        gridPlateau.initializeCustom(10, 10, positions);
 
         Assertions.assertEquals("O:0:2:N", (new Rover(gridPlateau)).move("MMMM"));
 
-    }
-
-    private Position findObstacleTile(GridPlateau grid, int x, int y) {
-        for ( int indexX = 0; indexX < x; indexX++)
-            for ( int indexY = 0; indexY < y; indexY++  ) {
-                Position position = new Position(indexX,indexY);
-                if (grid.isCellObstructed(position))
-                    return position;
-            }
-
-        return null;
     }
 }

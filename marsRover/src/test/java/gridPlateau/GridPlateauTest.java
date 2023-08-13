@@ -2,9 +2,11 @@ package gridPlateau;
 
 import common.Position;
 import common.Terrian;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -78,11 +80,42 @@ public class GridPlateauTest {
                 "Percentage of Obstacles can only be 99% or less.  One space is needed for the Rover");
     }
 
+//    @Test
+//    public void create_grid_where_0_0_is_Not_Obstructed() {
+//        GridPlateau gridPlateau = new GridPlateau();
+//        gridPlateau.initialize_where_0_0_is_normal(10,10, .8f );
+//        assertEquals(false, gridPlateau.isCellObstructed(new Position(0,0)));
+//    }
+
     @Test
-    public void create_grid_where_0_0_is_Not_Obstructed() {
+    public void gridTestCustomGridObstructedListNull() {
         GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize_where_0_0_is_normal(10,10, .8f );
-        assertEquals(false, gridPlateau.isCellObstructed(new Position(0,0)));
+        NullPointerException exception = Assertions.assertThrows(
+                NullPointerException.class, () -> (new GridPlateau()).initializeCustom(10,10, null));
+        Assertions.assertEquals(
+                exception.getMessage(), "ObstaclePositions parameters must contain zero or more positions instances");
+    }
+
+    @Test void gridTestCustomerObstructedList() {
+        ArrayList<Position> obstructedPositions = new ArrayList<>();
+        Position position = new Position(3,5);
+        obstructedPositions.add(position);
+
+        GridPlateau gridPlateau = new GridPlateau();
+        gridPlateau.initializeCustom(10, 10, obstructedPositions);
+
+        Assertions.assertEquals(true, gridPlateau.isCellObstructed(position));
+
+        int count_normal_tiles = 0;
+        int count_obstructed_tiles = 0;
+        for ( int indexX = 0; indexX < 10; indexX++) {
+            for ( int indexY = 0; indexY < 10; indexY++ ) {
+                if ( gridPlateau.isCellObstructed(position))
+                    count_obstructed_tiles++;
+                else
+                    count_normal_tiles++;
+            }
+        }
     }
 
     @Test

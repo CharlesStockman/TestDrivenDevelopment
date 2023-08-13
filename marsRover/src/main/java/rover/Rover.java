@@ -10,9 +10,6 @@ public class Rover {
     private GridPlateau gridPlateau;
 
 
-
-    private String previous_position;
-
     public Rover(GridPlateau gridPlateau) {
         this();
         this.gridPlateau = gridPlateau;
@@ -29,7 +26,9 @@ public class Rover {
     }
 
     public String move(String input) {
+
         String result = null;
+        String previous_position = null;
 
         if ( input == null )
             throw new NullPointerException("The input to the move function is null");
@@ -72,7 +71,8 @@ public class Rover {
             }
 
             if ( gridPlateau != null && gridPlateau.isCellObstructed(position)) {
-                result =  "O:" +previous_position;
+                result =  "O:" + previous_position;
+                System.out.println( "Currently in break code with " + previous_position);
                 break;
             }
         }
@@ -82,8 +82,6 @@ public class Rover {
         }
 
         return result;
-
-
     }
 
 

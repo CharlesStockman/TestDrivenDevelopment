@@ -52,19 +52,17 @@ public class GridPlateau {
             } while (!result);
         }
     }
-    public void initialize_where_0_0_is_normal(int x, int y, float percent_normal_terrian) {
-        this.initialize(x,y, percent_normal_terrian);
-        if (Objects.equals(grid[0][0], Terrian.Obstructed.name())) {
-            for ( int index = 0; index < 10; index++) {
-                for ( int index2 = 0; index < 10; index++ ) {
-                    if (Objects.equals(grid[index][index2], Terrian.Normal.name())) {
-                        grid[index][index2] = Terrian.Obstructed.name();
-                        grid[0][0] = Terrian.Normal.name();
-                        break;
-                    }
-                }
-            }
+
+    public void initializeCustom(int x, int y , List<Position> obstaclesPositions ) {
+
+        if ( obstaclesPositions == null ) {
+            throw new NullPointerException("ObstaclePositions parameters must contain zero or more positions instances");
         }
+
+        initialize(x,y);
+        obstaclesPositions.forEach( (position) ->
+            { grid[position.getX()][position.getY()] = Terrian.Obstructed.name(); });
+
     }
 
     public Boolean isCellObstructed(Position position ) {
