@@ -72,7 +72,6 @@ public class Rover {
 
             if ( gridPlateau != null && gridPlateau.isCellObstructed(position)) {
                 result =  "O:" + previous_position;
-                System.out.println( "Currently in break code with " + previous_position);
                 break;
             }
         }

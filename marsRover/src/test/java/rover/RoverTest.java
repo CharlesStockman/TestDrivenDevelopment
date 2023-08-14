@@ -5,34 +5,22 @@ import common.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 public class RoverTest {
 
     @Test
     public void displayDefaultValues() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:N", rover.displayCoordinatesAndDirection());
+        Assertions.assertEquals("0:0:N", (new Rover()).displayCoordinatesAndDirection());
     }
 
     @Test
     public void inputMovePrintCellForNextObstacle() {
-
-        GridPlateau gridPlateau = new GridPlateau();
-
-        Position position = new Position(0, 2);
-        ArrayList<Position> positions = new ArrayList<>();
-        positions.add(position);
-
-        gridPlateau.initializeCustom(10, 10, positions);
-
+        GridPlateau gridPlateau = GridPlateauFactory.create_standard_grid_with_obstructed_list(new Position(0,2));
         Assertions.assertEquals("O:0:1:N", (new Rover(gridPlateau)).move("MM"));
     }
 
     @Test
     public void inputMoveCommandsIsEmptyString() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:N", rover.move(""));
+        Assertions.assertEquals("0:0:N", (new Rover()).move(""));
     }
 
     @Test
@@ -44,98 +32,82 @@ public class RoverTest {
 
     @Test
     public void inputMoveCommandLeftRotateOnce() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:W", rover.move("L"));
+        Assertions.assertEquals("0:0:W", (new Rover()).move("L"));
     }
 
     @Test
     public void inputMoveCommandLeftRotateTwice() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:S", rover.move("LL"));
+        Assertions.assertEquals("0:0:S", (new Rover()).move("LL"));
     }
 
     @Test
     public void inputMoveCommandLeftRotateThree() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:E", rover.move("LLL"));
+        Assertions.assertEquals("0:0:E", (new Rover()).move("LLL"));
     }
 
     @Test
     public void inputMoveCommandLeftRotateFour() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:N", rover.move("LLLL"));
+        Assertions.assertEquals("0:0:N", (new Rover()).move("LLLL"));
     }
 
     @Test
     public void inputMoveCommandRightRotateOne() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:E", rover.move("R"));
+        Assertions.assertEquals("0:0:E", (new Rover()).move("R"));
     }
 
     @Test
     public void inputMoveCommandRightRotateTwo() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:S", rover.move("RR"));
+        Assertions.assertEquals("0:0:S", (new Rover()).move("RR"));
     }
 
     @Test
     public void inputMoveCommandRightRotateThree() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:W", rover.move("RRR"));
+        Assertions.assertEquals("0:0:W", (new Rover()).move("RRR"));
     }
 
     @Test
     public void inputMoveCommandRightRotateFour() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:N", rover.move("RRRR"));
+        Assertions.assertEquals("0:0:N", (new Rover()).move("RRRR"));
     }
 
     @Test
     public void inputMoveCommandMoveNorth() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:1:N", rover.move("M"));
+        Assertions.assertEquals("0:1:N", (new Rover()).move("M"));
     }
 
     @Test
     public void inputMoveCommandMoveEast() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("1:0:E", rover.move("RM"));
+        Assertions.assertEquals("1:0:E", (new Rover()).move("RM"));
     }
 
     @Test
     public void inputMoveCommandMoveSouth() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:S", rover.move("MLLM"));
+        Assertions.assertEquals("0:0:S", (new Rover()).move("MLLM"));
     }
 
     @Test
     public void inputMoveCommandMoveWest() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:W", rover.move("RMLLM"));
+        Assertions.assertEquals("0:0:W", (new Rover()).move("RMLLM"));
     }
 
     @Test
     public void inputMoveCommandMoveNorthReachEndOfGrid() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:N", rover.move("MMMMMMMMMM"));
+        Assertions.assertEquals("0:0:N", (new Rover()).move("MMMMMMMMMM"));
     }
 
     @Test
     public void inputMoveCommandMoveSouthReachEndOfGrid() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:9:S", rover.move("LLM"));
+        Assertions.assertEquals("0:9:S", (new Rover()).move("LLM"));
     }
 
     @Test
     public void inputMoveCommandMoveWestEndOfGrid() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("9:0:W", rover.move("LM"));
+        Assertions.assertEquals("9:0:W", (new Rover()).move("LM"));
     }
 
     @Test
     public void inputMoveCommandEastEndOfGrid() {
-        Rover rover = new Rover();
-        Assertions.assertEquals("0:0:E", rover.move("RMMMMMMMMMM"));
+        Assertions.assertEquals("0:0:E", (new Rover()).move("RMMMMMMMMMM"));
     }
 
     //
@@ -143,30 +115,19 @@ public class RoverTest {
     //
     @Test
     public void gridWithNoObstacles() {
-        GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize(10, 10);
-        Rover rover = new Rover(gridPlateau);
+        Rover rover = new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions());
         Assertions.assertEquals("2:3:N", rover.move("MMRMMLM"));
     }
 
     @Test
     public void gridWihWrap() {
-        GridPlateau gridPlateau = new GridPlateau();
-        gridPlateau.initialize(10, 10);
-        Rover rover = new Rover();
+        Rover rover = new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions());
         Assertions.assertEquals("0:0:N", rover.move("MMMMMMMMMM"));
     }
 
     @Test
     public void gridWithObstacle() {
-        GridPlateau gridPlateau = new GridPlateau();
-        ArrayList<Position> positions = new ArrayList<>();
-        Position position = new Position(0, 3);
-        positions.add(position);
-
-        gridPlateau.initializeCustom(10, 10, positions);
-
+        GridPlateau gridPlateau = GridPlateauFactory.create_standard_grid_with_obstructed_list(new Position(0,3));
         Assertions.assertEquals("O:0:2:N", (new Rover(gridPlateau)).move("MMMM"));
-
     }
 }
