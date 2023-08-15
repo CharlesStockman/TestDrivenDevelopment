@@ -2,11 +2,13 @@ package rover;
 
 import gridPlateau.GridPlateau;
 import common.Position;
+import rover.commandPattern.ChangeDirectionCommand;
+import rover.commandPattern.MoveCommand;
 
 public class Rover {
 
     private Position position;
-    private Enum<CompassPoint> compassPoint;
+    private CompassPoint compassPoint;
     private GridPlateau gridPlateau;
 
 
@@ -39,36 +41,10 @@ public class Rover {
 
             previous_position = displayCoordinatesAndDirection();
 
-            if (c == 'L' && compassPoint == CompassPoint.N)
-                this.compassPoint = CompassPoint.W;
-            else if (c == 'L' && compassPoint == CompassPoint.W)
-                this.compassPoint = CompassPoint.S;
-            else if (c == 'L' && compassPoint == CompassPoint.S)
-                this.compassPoint = CompassPoint.E;
-            else if (c == 'L' && compassPoint == CompassPoint.E)
-                this.compassPoint = CompassPoint.N;
-            else if (c == 'R' && compassPoint == CompassPoint.N)
-                this.compassPoint = CompassPoint.E;
-            else if (c == 'R' && compassPoint == CompassPoint.E)
-                this.compassPoint = CompassPoint.S;
-            else if (c == 'R' && compassPoint == CompassPoint.S)
-                this.compassPoint = CompassPoint.W;
-            else if (c == 'R' && compassPoint == CompassPoint.W)
-                this.compassPoint = CompassPoint.N;
-
-            if (c == 'M' && compassPoint == CompassPoint.N) {
-                position = position.moveVerticalUp();
-                position = position.wrap(10,10);
-            } else if (c == 'M' && compassPoint == CompassPoint.E) {
-                position = position.moveHorizontalRight();
-                position = position.wrap(10,10);
-            } else if (c == 'M' && compassPoint == CompassPoint.S) {
-                position = position.moveVerticalDown();
-                position = position.wrap(10,10);
-            } else if (c == 'M' && compassPoint == CompassPoint.W) {
-                position = position.moveHorizontalLeft();
-                position = position.wrap(10,10);
-            }
+            if ( c == 'L' || c == 'R')
+                this.compassPoint = (new ChangeDirectionCommand(c, compassPoint)).execute();
+            else if ( c == 'M')
+                this.position = ( new MoveCommand(c, compassPoint, position)).execute();
 
             if ( gridPlateau != null && gridPlateau.isCellObstructed(position)) {
                 result =  "O:" + previous_position;
