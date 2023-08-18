@@ -4,12 +4,25 @@ import gridPlateau.GridPlateau;
 import common.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import rover.commandPattern.History;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
 public class RoverTest {
 
     @Test
     public void displayDefaultValues() {
         Assertions.assertEquals("0:0:N", (new Rover()).displayCoordinatesAndDirection());
+    }
+
+    @Test
+    public void displayObstructedPosition() {
+        Assertions.assertEquals("O:0:0:N", new Rover().displayObstructedCoordinatesAndDirection(CompassPoint.N, new Position(0,0)));
     }
 
     @Test
@@ -30,84 +43,23 @@ public class RoverTest {
         Assertions.assertEquals(exception.getMessage(), "The input to the move function is null");
     }
 
-    @Test
-    public void inputMoveCommandLeftRotateOnce() {
-        Assertions.assertEquals("0:0:W", (new Rover()).move("L"));
+    @ParameterizedTest
+    @CsvSource({"L, 0:0:W", "LL, 0:0:S", "LLL, 0:0:E", "LLLL, 0:0:N",
+                "R, 0:0:E", "RR, 0:0:S", "RRR, 0:0:W", "RRRR, 0:0:N"})
+    public void inputMoveCommandRotate(String command, String result) {
+        Assertions.assertEquals(result, (new Rover()).move(command));
     }
 
-    @Test
-    public void inputMoveCommandLeftRotateTwice() {
-        Assertions.assertEquals("0:0:S", (new Rover()).move("LL"));
+    @ParameterizedTest
+    @CsvSource({"M, 0:1:N", "RM, 1:0:E", "MLLM, 0:0:S", "RMLLM, 0:0:W"})
+    public void inputMoveCommandMove(String command, String result) {
+        Assertions.assertEquals(result, (new Rover()).move(command));
     }
 
-    @Test
-    public void inputMoveCommandLeftRotateThree() {
-        Assertions.assertEquals("0:0:E", (new Rover()).move("LLL"));
-    }
-
-    @Test
-    public void inputMoveCommandLeftRotateFour() {
-        Assertions.assertEquals("0:0:N", (new Rover()).move("LLLL"));
-    }
-
-    @Test
-    public void inputMoveCommandRightRotateOne() {
-        Assertions.assertEquals("0:0:E", (new Rover()).move("R"));
-    }
-
-    @Test
-    public void inputMoveCommandRightRotateTwo() {
-        Assertions.assertEquals("0:0:S", (new Rover()).move("RR"));
-    }
-
-    @Test
-    public void inputMoveCommandRightRotateThree() {
-        Assertions.assertEquals("0:0:W", (new Rover()).move("RRR"));
-    }
-
-    @Test
-    public void inputMoveCommandRightRotateFour() {
-        Assertions.assertEquals("0:0:N", (new Rover()).move("RRRR"));
-    }
-
-    @Test
-    public void inputMoveCommandMoveNorth() {
-        Assertions.assertEquals("0:1:N", (new Rover()).move("M"));
-    }
-
-    @Test
-    public void inputMoveCommandMoveEast() {
-        Assertions.assertEquals("1:0:E", (new Rover()).move("RM"));
-    }
-
-    @Test
-    public void inputMoveCommandMoveSouth() {
-        Assertions.assertEquals("0:0:S", (new Rover()).move("MLLM"));
-    }
-
-    @Test
-    public void inputMoveCommandMoveWest() {
-        Assertions.assertEquals("0:0:W", (new Rover()).move("RMLLM"));
-    }
-
-    @Test
-    public void inputMoveCommandMoveNorthReachEndOfGrid() {
-        Assertions.assertEquals("0:0:N", (new Rover()).move("MMMMMMMMMM"));
-    }
-
-    @Test
-    public void inputMoveCommandMoveSouthReachEndOfGrid() {
-        Assertions.assertEquals("0:9:S", (new Rover()).move("LLM"));
-    }
-
-    @Test
-    public void inputMoveCommandMoveWestEndOfGrid() {
-        Assertions.assertEquals("9:0:W", (new Rover()).move("LM"));
-    }
-
-    @Test
-    public void inputMoveCommandEastEndOfGrid() {
-        Assertions.assertEquals("0:0:E", (new Rover()).move("RMMMMMMMMMM"));
+    @ParameterizedTest
+    @CsvSource({"MMMMMMMMMM, 0:0:N", "MMMMMMMMMM, 0:0:N", "LLM, 0:9:S", "LM, 9:0:W", "RMMMMMMMMMM, 0:0:E"})
+    public void inputMoveCommandMoveNorthReachEndOfGrid(String command, String result) {
+        Assertions.assertEquals(result, (new Rover()).move(command));
     }
 
     //
@@ -120,7 +72,7 @@ public class RoverTest {
     }
 
     @Test
-    public void gridWihWrap() {
+    public void gridWithWrap() {
         Rover rover = new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions());
         Assertions.assertEquals("0:0:N", rover.move("MMMMMMMMMM"));
     }
@@ -129,5 +81,29 @@ public class RoverTest {
     public void gridWithObstacle() {
         GridPlateau gridPlateau = GridPlateauFactory.create_standard_grid_with_obstructed_list(new Position(0,3));
         Assertions.assertEquals("O:0:2:N", (new Rover(gridPlateau)).move("MMMM"));
+    }
+
+    @Test
+    public void gridDisplayHistoryOneMove() {
+        GridPlateau gridPlateau = GridPlateauFactory.create_standard_grid_with_obstructed_list(new Position(0,3));
+        Rover rover = new Rover(gridPlateau);
+        Assertions.assertEquals("0:1:W", rover.move("ML"));
+
+        List<History.Event> expectedEvents = new ArrayList<>();
+        expectedEvents.add(new History.Event( Character.MIN_VALUE, CompassPoint.N, new Position(0,0)));
+        expectedEvents.add(new History.Event( 'M', CompassPoint.N, new Position(0,1)));
+        expectedEvents.add(new History.Event( 'L', CompassPoint.E, new Position(0,1)));
+
+        List<History.Event> actualEvents = History.getInstance().getHistory();
+
+        for ( int index = 0; index < expectedEvents.size(); index++ ) {
+            History.Event expected = expectedEvents.get(index);
+            History.Event actual   = actualEvents.get(index);
+
+            Assertions.assertEquals(expected.getCommand(), actual.getCommand());
+            Assertions.assertEquals(expected.getPosition(), expected.getPosition());
+            Assertions.assertEquals(expected.getDirection(), expected.getDirection());
+        }
+
     }
 }

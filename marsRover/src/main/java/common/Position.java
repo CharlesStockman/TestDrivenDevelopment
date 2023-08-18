@@ -1,5 +1,11 @@
 package common;
 
+import lombok.Data;
+
+/*
+ * Note need @Data for the equals() member function so JUnit equal will not compare the references, but the data.
+ */
+@Data
 public class Position {
 
     private final Integer x;
@@ -53,6 +59,4 @@ public class Position {
 
         return new Position(tmp_x, tmp_y);
     }
-
-
 }

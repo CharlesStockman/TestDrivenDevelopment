@@ -4,6 +4,7 @@ import gridPlateau.GridPlateau;
 import common.Position;
 import rover.commandPattern.ChangeDirectionCommand;
 import rover.commandPattern.MoveCommand;
+import rover.commandPattern.StartCommand;
 
 public class Rover {
 
@@ -24,40 +25,38 @@ public class Rover {
     }
 
     public String displayCoordinatesAndDirection() {
-        return String.format("%d:%d:%s", position.getX() , position.getY() , compassPoint);
+        return String.format("%d:%d:%s", position.getX(), position.getY(), compassPoint);
+    }
+
+    public String displayObstructedCoordinatesAndDirection(CompassPoint compassPoint, Position position) {
+        return String.format("O:%d:%d:%s", position.getX(), position.getY(), compassPoint);
     }
 
     public String move(String input) {
 
-        String result = null;
-        String previous_position = null;
+        Boolean isObstructedcuted = false;
+        Position previousPosition = null;
 
-        if ( input == null )
+        if (input == null)
             throw new NullPointerException("The input to the move function is null");
-        else if ( input.length() == 0 )
-             result = displayCoordinatesAndDirection();
 
-        for ( Character c : input.toCharArray()) {
+        (new StartCommand(Character.MIN_VALUE, CompassPoint.N, new Position(0, 0))).execute();
 
-            previous_position = displayCoordinatesAndDirection();
-
-            if ( c == 'L' || c == 'R')
-                this.compassPoint = (new ChangeDirectionCommand(c, compassPoint)).execute();
-            else if ( c == 'M')
-                this.position = ( new MoveCommand(c, compassPoint, position)).execute();
-
-            if ( gridPlateau != null && gridPlateau.isCellObstructed(position)) {
-                result =  "O:" + previous_position;
-                break;
+        for (Character c : input.toCharArray()) {
+            if (c == 'L' || c == 'R')
+                this.compassPoint = (new ChangeDirectionCommand(c, compassPoint, position)).execute();
+            else if (c == 'M') {
+                previousPosition = position;
+                this.position = (new MoveCommand(c, compassPoint, position)).execute();
+                if (gridPlateau != null && gridPlateau.isCellObstructed(position)) {
+                    isObstructedcuted = true;
+                    break;
+                }
             }
         }
 
-        if ( result == null ) {
-            result = displayCoordinatesAndDirection();
-        }
-
+        String result = ( isObstructedcuted ) ? displayObstructedCoordinatesAndDirection(compassPoint, previousPosition) : displayCoordinatesAndDirection();
         return result;
+
     }
-
-
 }

@@ -1,15 +1,18 @@
 package rover.commandPattern;
 
+import common.Position;
 import rover.CompassPoint;
 
 public class ChangeDirectionCommand implements CommandInterface {
 
     private Character command;
     private CompassPoint compassPoint;
+    private Position position;
 
-    public ChangeDirectionCommand(Character command, CompassPoint compassPoint) {
+    public ChangeDirectionCommand(Character command, CompassPoint compassPoint, Position position ) {
         this.command = command;
         this.compassPoint = compassPoint;
+        this.position = position;
     }
 
     @Override
@@ -31,6 +34,9 @@ public class ChangeDirectionCommand implements CommandInterface {
             result = CompassPoint.W;
         else if (command == 'R' && compassPoint == CompassPoint.W)
             result = CompassPoint.N;
+
+        addEventHistory('L', result, position, "");
+
         return result;
     }
 }

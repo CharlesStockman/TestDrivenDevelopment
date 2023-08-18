@@ -1,6 +1,7 @@
 package rover.commandPattern;
 
 import common.Position;
+import gridPlateau.GridPlateau;
 import rover.CompassPoint;
 
 public class MoveCommand implements CommandInterface {
@@ -9,6 +10,7 @@ public class MoveCommand implements CommandInterface {
     private CompassPoint compassPoint;
 
     private Position position;
+    private GridPlateau gridPlateau;
 
     public MoveCommand(Character command, CompassPoint compassPoint, Position position) {
         this.command = command;
@@ -18,20 +20,25 @@ public class MoveCommand implements CommandInterface {
 
     @Override
     public Position execute() {
+
+        Position newPosition = null;
+
         if (command == 'M' && compassPoint == CompassPoint.N) {
-            position = position.moveVerticalUp();
-            position = position.wrap(10,10);
+            newPosition = position.moveVerticalUp();
+            newPosition = newPosition.wrap(10,10);
         } else if (command == 'M' && compassPoint == CompassPoint.E) {
-            position = position.moveHorizontalRight();
-            position = position.wrap(10,10);
+            newPosition = position.moveHorizontalRight();
+            newPosition = newPosition.wrap(10,10);
         }  else if (command == 'M' && compassPoint == CompassPoint.S) {
-            position = position.moveVerticalDown();
-            position = position.wrap(10, 10);
+            newPosition = position.moveVerticalDown();
+            newPosition = newPosition.wrap(10, 10);
         } else if (command == 'M' && compassPoint == CompassPoint.W) {
-            position = position.moveHorizontalLeft();
-            position = position.wrap(10,10);
+            newPosition = position.moveHorizontalLeft();
+            newPosition = newPosition.wrap(10,10);
         }
 
-        return position;
+        addEventHistory('M',compassPoint, newPosition, "later");
+
+        return newPosition;
     }
 }
