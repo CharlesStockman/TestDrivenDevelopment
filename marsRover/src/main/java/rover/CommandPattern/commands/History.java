@@ -1,12 +1,10 @@
-package rover.commandPattern;
+package rover.CommandPattern.commands;
 
 import common.Position;
 import lombok.Data;
 import rover.CompassPoint;
 
-import javax.swing.event.ListDataEvent;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class History {

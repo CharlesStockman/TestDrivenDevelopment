@@ -2,14 +2,10 @@ package rover;
 
 import gridPlateau.GridPlateau;
 import common.Position;
-import rover.commandPattern.ChangeDirectionCommand;
-import rover.commandPattern.MoveCommand;
-import rover.commandPattern.StartCommand;
-import rover.commandPattern.ValidateCommand;
-
-import java.security.InvalidParameterException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import rover.CommandPattern.commands.commands.ChangeDirectionCommand;
+import rover.CommandPattern.commands.commands.MoveCommand;
+import rover.CommandPattern.commands.internalCommands.StartCommand;
+import rover.CommandPattern.commands.internalCommands.ValidateCommand;
 
 public class Rover {
 
@@ -47,13 +43,13 @@ public class Rover {
 
         (new StartCommand(Character.MIN_VALUE, CompassPoint.N, new Position(0, 0))).execute();
         input = (new ValidateCommand(input)).execute();
-         
+
         for (Character c : input.toCharArray()) {
             if (c == 'L' || c == 'R')
-                this.compassPoint = (new ChangeDirectionCommand(c, compassPoint, position)).execute();
+                this.compassPoint = (new ChangeDirectionCommand()).execute(c, compassPoint, position);
             else if (c == 'M') {
                 previousPosition = position;
-                this.position = (new MoveCommand(c, compassPoint, position)).execute();
+                this.position = (new MoveCommand()).execute(c, compassPoint, position);
                 if (gridPlateau != null && gridPlateau.isCellObstructed(position)) {
                     isObstructive = true;
                     break;

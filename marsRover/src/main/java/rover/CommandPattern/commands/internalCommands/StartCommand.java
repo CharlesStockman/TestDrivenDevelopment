@@ -1,7 +1,9 @@
-package rover.commandPattern;
+package rover.CommandPattern.commands.internalCommands;
 
 import common.Position;
 import rover.CompassPoint;
+import rover.CommandPattern.commands.internalCommands.CommandInterface;
+import rover.CommandPattern.commands.History;
 
 public class StartCommand implements CommandInterface<Boolean> {
 

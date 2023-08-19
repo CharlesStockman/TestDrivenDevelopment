@@ -1,13 +1,11 @@
-package rover.commandPattern;
+package rover.CommandPattern.commands.commands;
 
 import common.Position;
-import gridPlateau.GridPlateau;
+import rover.CommandPattern.commands.History;
 import rover.CompassPoint;
 
-import java.util.List;
-
 public interface CommandInterface<T> {
-     T  execute();
+     T  execute(Character command, CompassPoint compassPoint, Position position );
 
     default void addEventHistory(Character command, CompassPoint compassPoint, Position position, String otherInformation) {
         History.Event event = new History.Event(command, compassPoint, position);
