@@ -7,6 +7,8 @@ import rover.CommandPattern.commands.commands.MoveCommand;
 import rover.CommandPattern.commands.internalCommands.StartCommand;
 import rover.CommandPattern.commands.internalCommands.ValidateCommand;
 
+import javax.print.attribute.standard.NumberOfInterveningJobs;
+
 public class Rover {
 
     private Position position;
@@ -35,7 +37,6 @@ public class Rover {
 
     public String move(String input) {
 
-        Boolean isObstructive = false;
         Position previousPosition = null;
 
         if (input == null)
@@ -44,20 +45,20 @@ public class Rover {
         (new StartCommand(Character.MIN_VALUE, CompassPoint.N, new Position(0, 0))).execute();
         input = (new ValidateCommand(input)).execute();
 
+        MoveCommand.PositionData positionData = null;
         for (Character c : input.toCharArray()) {
             if (c == 'L' || c == 'R')
                 this.compassPoint = (new ChangeDirectionCommand()).execute(c, compassPoint, position);
             else if (c == 'M') {
-                previousPosition = position;
-                this.position = (new MoveCommand()).execute(c, compassPoint, position);
-                if (gridPlateau != null && gridPlateau.isCellObstructed(position)) {
-                    isObstructive = true;
+                positionData = (new MoveCommand(gridPlateau)).execute(c, compassPoint, position);
+                if ( positionData.isObstructed())
                     break;
-                }
+                else
+                    this.position = positionData.getPosition();
             }
         }
 
-        String result = ( isObstructive ) ? displayObstructedCoordinatesAndDirection(compassPoint, previousPosition) : displayCoordinatesAndDirection();
+        String result = (positionData != null && positionData.isObstructed() ) ? displayObstructedCoordinatesAndDirection(compassPoint, position) : displayCoordinatesAndDirection();
         return result;
 
     }

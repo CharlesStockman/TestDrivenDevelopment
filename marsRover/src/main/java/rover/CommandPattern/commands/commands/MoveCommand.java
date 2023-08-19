@@ -2,6 +2,7 @@ package rover.CommandPattern.commands.commands;
 
 import common.Position;
 import gridPlateau.GridPlateau;
+import lombok.Data;
 import rover.CompassPoint;
 
 public class MoveCommand implements CommandInterface {
@@ -12,13 +13,15 @@ public class MoveCommand implements CommandInterface {
     private Position position;
     private GridPlateau gridPlateau;
 
-    public MoveCommand() {
+    public MoveCommand(GridPlateau gridPlateau) {
+        this.gridPlateau = gridPlateau;
     }
 
     @Override
-    public Position execute(Character command , CompassPoint compassPoint, Position position) {
+    public PositionData execute(Character command , CompassPoint compassPoint, Position position) {
 
         Position newPosition = null;
+        String otherInformation;
 
         if (compassPoint == CompassPoint.N)
             newPosition = position.moveVerticalUp();
@@ -31,8 +34,27 @@ public class MoveCommand implements CommandInterface {
 
         newPosition = newPosition.wrap(10,10);
 
-        addEventHistory('M',compassPoint, newPosition, "later");
+        PositionData positionData = new PositionData();
+        if (gridPlateau != null && gridPlateau.isCellObstructed(newPosition)) {
+            newPosition = position;
+            otherInformation = "obstructed:true";
+            positionData.setObstructed(true);
+            positionData.setPosition(position);
 
-        return newPosition;
+        } else {
+            otherInformation = "obstructed:false";
+            positionData.setObstructed(false);
+            positionData.setPosition(newPosition);
+        }
+
+        addEventHistory('M',compassPoint, newPosition, otherInformation);
+
+        return positionData;
+    }
+
+    @Data
+    public static class PositionData {
+        private Position position;
+        private boolean isObstructed;
     }
 }
