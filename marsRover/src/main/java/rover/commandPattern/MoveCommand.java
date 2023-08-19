@@ -23,16 +23,16 @@ public class MoveCommand implements CommandInterface {
 
         Position newPosition = null;
 
-        if (command == 'M' && compassPoint == CompassPoint.N) {
+        if (compassPoint == CompassPoint.N) {
             newPosition = position.moveVerticalUp();
             newPosition = newPosition.wrap(10,10);
-        } else if (command == 'M' && compassPoint == CompassPoint.E) {
+        } else if (compassPoint == CompassPoint.E) {
             newPosition = position.moveHorizontalRight();
             newPosition = newPosition.wrap(10,10);
-        }  else if (command == 'M' && compassPoint == CompassPoint.S) {
+        }  else if (compassPoint == CompassPoint.S) {
             newPosition = position.moveVerticalDown();
             newPosition = newPosition.wrap(10, 10);
-        } else if (command == 'M' && compassPoint == CompassPoint.W) {
+        } else if (compassPoint == CompassPoint.W) {
             newPosition = position.moveHorizontalLeft();
             newPosition = newPosition.wrap(10,10);
         }

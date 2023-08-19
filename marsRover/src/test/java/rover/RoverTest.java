@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import rover.commandPattern.History;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -104,6 +105,28 @@ public class RoverTest {
             Assertions.assertEquals(expected.getPosition(), expected.getPosition());
             Assertions.assertEquals(expected.getDirection(), expected.getDirection());
         }
+    }
 
+    @Test
+    public void moveArgumentLowerCase() {
+        Rover rover = new Rover();
+        Assertions.assertEquals("1:0:E", rover.move("rm"));
+    }
+
+    @Test
+    void moveArgumentInvalidOneMistake() {
+        Rover rover = new Rover();
+        InvalidParameterException exception = Assertions.assertThrows(
+                InvalidParameterException.class,  () -> (new Rover()).move("A"));
+        Assertions.assertEquals(exception.getMessage(), "Command String : A\n0 base index(s) are 0\nIncorrect command(s) are A");
+    }
+
+    @Test
+    void moveArgumentInvalidTwoMistakes() {
+        Rover rover = new Rover();
+        InvalidParameterException exception = Assertions.assertThrows(
+                InvalidParameterException.class,  () -> (new Rover()).move("ALB"));
+        Assertions.assertEquals(exception.getMessage(), "Command String : ALB\n0 base index(s) are 0,2\nIncorrect command(s) are A,B");
     }
 }
+
