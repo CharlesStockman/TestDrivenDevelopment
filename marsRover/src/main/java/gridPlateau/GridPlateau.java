@@ -40,28 +40,15 @@ public class GridPlateau {
      * @param maximum_y  The maximum maximum_y-coordinate
      */
     public void initialize(int maximum_x, int maximum_y, float percent_obstructed) {
-        Random random = new Random();
-
         int  obstructedMax = (int)(( maximum_x * maximum_y ) * percent_obstructed );
         if ( percent_obstructed == 100 ) {
             throw new InvalidParameterException("Percentage of Obstacles can only be 99% or less.  One space is needed for the Rover");
         }
 
         initialize(maximum_x,maximum_y);
-
+        List<common.Position> randomizedList = createRandomizedList(maximum_x, maximum_y);
         for ( int index = 0; index < obstructedMax; index++) {
-            // Continue to find a cell that is currently Terrain to be changed to Obstructive
-            // Handles the issue where you select a cello that is already obstructive
-            boolean result = false;
-            do {
-                int next_x = random.nextInt(maximum_x);
-                int next_y = random.nextInt(maximum_y);
-
-                if (Objects.equals(grid[next_x][next_y], Terrain.Normal.name())) {
-                    grid[next_x][next_y] = Terrain.Obstructed.name();
-                    result = true;
-                }
-            } while (!result);
+            grid[randomizedList.get(index).getX()][randomizedList.get(index).getY()] = Terrain.Obstructed.name();
         }
     }
 
@@ -79,6 +66,16 @@ public class GridPlateau {
         initialize(maximum_x,maximum_y);
         obstaclesPositions.forEach( (position) ->
             { grid[position.getX()][position.getY()] = Terrain.Obstructed.name(); });
+    }
+
+    private List<Position> createRandomizedList(int maximum_x,int maximum_y) {
+        ArrayList<Position> randomList = new ArrayList<>();
+        for ( int index_x = 0; index_x < maximum_x; index_x++ )
+            for ( int index_y = 0; index_y < maximum_y; index_y++ )
+                randomList.add( new Position(index_x, index_y));
+
+        Collections.shuffle(randomList);
+        return randomList;
     }
 
     public Boolean isCellObstructed(Position position ) {
