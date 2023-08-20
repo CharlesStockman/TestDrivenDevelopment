@@ -1,4 +1,4 @@
-package rover.CommandPattern.commands;
+package rover.CommandPatterns;
 
 import common.Position;
 import lombok.Data;
@@ -7,6 +7,10 @@ import rover.CompassPoint;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Adds history to the command design pattern
+ * From an older solution that I rejected.  Code is no longer being used, but since it is practice
+ */
 public class History {
 
     private List<Event> eventList = null;
@@ -14,14 +18,21 @@ public class History {
 
 
     private History() {
-        eventList =  ( eventList == null ) ? new ArrayList<Event>() : eventList;
-    };
+        eventList =  ( eventList == null ) ? new ArrayList<>() : eventList;
+    }
 
     public static History getInstance() {
         history = ( history == null ) ? new History() : history;
         return history;
     }
 
+    /**
+     * One event from the history list
+     *
+     * @param command               The command for the event being logged
+     * @param compassPoint          The final direction of the rover for the event being logged.
+     * @param position              The final position of the rove from the @Link { gridPlateau.GridPlateau }
+     */
     public void addEvent(Character command, CompassPoint compassPoint, Position position) {
         Event event = new Event(command, compassPoint, position);
         eventList.add(event);
@@ -47,10 +58,6 @@ public class History {
             this.direction = direction;
             this.position = position;
             //this.finalPositionAndDirection = displayCoordinatesAndDirection(position, direction);
-        }
-
-        public String displayCoordinatesAndDirection(Position position, CompassPoint compassPoint) {
-            return String.format("%d:%d:%s", position.getX() , position.getY() , compassPoint);
         }
 
     }

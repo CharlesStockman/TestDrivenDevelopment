@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import rover.CommandPattern.commands.History;
+import rover.CommandPatterns.History;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

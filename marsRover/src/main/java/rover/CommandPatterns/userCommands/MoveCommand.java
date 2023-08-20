@@ -1,17 +1,16 @@
-package rover.CommandPattern.commands.commands;
+package rover.CommandPatterns.userCommands;
 
 import common.Position;
 import gridPlateau.GridPlateau;
 import lombok.Data;
 import rover.CompassPoint;
 
-public class MoveCommand implements CommandInterface {
+/**
+ * A command to move the rover one position in the direction that the rover is pointing in.
+ */
+public class MoveCommand implements CommandInterface<MoveCommand.PositionData> {
 
-    private Character command;
-    private CompassPoint compassPoint;
-
-    private Position position;
-    private GridPlateau gridPlateau;
+    private final GridPlateau gridPlateau;
 
     public MoveCommand(GridPlateau gridPlateau) {
         this.gridPlateau = gridPlateau;
@@ -36,18 +35,16 @@ public class MoveCommand implements CommandInterface {
 
         PositionData positionData = new PositionData();
         if (gridPlateau != null && gridPlateau.isCellObstructed(newPosition)) {
-            newPosition = position;
             otherInformation = "obstructed:true";
             positionData.setObstructed(true);
             positionData.setPosition(position);
-
         } else {
             otherInformation = "obstructed:false";
             positionData.setObstructed(false);
             positionData.setPosition(newPosition);
         }
 
-        addEventHistory('M',compassPoint, newPosition, otherInformation);
+        addEventHistory('M',compassPoint, positionData.getPosition(), otherInformation);
 
         return positionData;
     }

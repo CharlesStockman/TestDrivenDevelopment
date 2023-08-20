@@ -2,12 +2,10 @@ package rover;
 
 import gridPlateau.GridPlateau;
 import common.Position;
-import rover.CommandPattern.commands.commands.ChangeDirectionCommand;
-import rover.CommandPattern.commands.commands.MoveCommand;
-import rover.CommandPattern.commands.internalCommands.StartCommand;
-import rover.CommandPattern.commands.internalCommands.ValidateCommand;
-
-import javax.print.attribute.standard.NumberOfInterveningJobs;
+import rover.CommandPatterns.userCommands.ChangeDirectionCommand;
+import rover.CommandPatterns.userCommands.MoveCommand;
+import rover.CommandPatterns.internalCommands.StartCommand;
+import rover.CommandPatterns.internalCommands.ValidateCommand;
 
 public class Rover {
 
@@ -37,8 +35,6 @@ public class Rover {
 
     public String move(String input) {
 
-        Position previousPosition = null;
-
         if (input == null)
             throw new NullPointerException("The input to the move function is null");
 
@@ -58,8 +54,6 @@ public class Rover {
             }
         }
 
-        String result = (positionData != null && positionData.isObstructed() ) ? displayObstructedCoordinatesAndDirection(compassPoint, position) : displayCoordinatesAndDirection();
-        return result;
-
+        return (positionData != null && positionData.isObstructed() ) ? displayObstructedCoordinatesAndDirection(compassPoint, position) : displayCoordinatesAndDirection();
     }
 }

@@ -1,7 +1,7 @@
 package gridPlateau;
 
 import common.Position;
-import common.Terrian;
+import common.Terrain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +26,7 @@ public class GridPlateauTest {
         InvalidParameterException exception = assertThrows(
                 InvalidParameterException.class,
                 () -> (new GridPlateau()).initialize(-1, 5));
-        assertEquals(exception.getMessage(), "create_grid() x parameter cannot be less then 0");
+        assertEquals(exception.getMessage(), "create_grid() maximum_x parameter cannot be less then 0");
     }
 
     @Test
@@ -34,7 +34,7 @@ public class GridPlateauTest {
         InvalidParameterException exception = assertThrows(
                 InvalidParameterException.class,
                 () -> (new GridPlateau()).initialize(5, -1));
-        assertEquals(exception.getMessage(), "create_grid() y parameter cannot be less then 0");
+        assertEquals(exception.getMessage(), "create_grid() maximum_y parameter cannot be less then 0");
     }
 
     @Test
@@ -46,7 +46,7 @@ public class GridPlateauTest {
                 Position position = new Position(indexX, indexY);
                 if (gridPlateau.isCellObstructed(position))
                     fail(String.format("Tile is %s instead of %s for position (%d,%d",
-                            Terrian.Obstructed.name(), Terrian.Normal, position.getX(), position.getY()));
+                            Terrain.Obstructed.name(), Terrain.Normal, position.getX(), position.getY()));
             }
     }
 
@@ -126,7 +126,7 @@ public class GridPlateauTest {
     public void gridTestIfTileIsObstructed() {
         GridPlateau gridPlateau = new GridPlateau();
         gridPlateau.initialize(10,10);
-        gridPlateau.setTile(new Position(4,5), Terrian.Obstructed.name());
+        gridPlateau.setTile(new Position(4,5), Terrain.Obstructed.name());
         assertEquals(true, gridPlateau.isCellObstructed(new Position(4,5)));
     }
 
@@ -163,7 +163,7 @@ public class GridPlateauTest {
         GridPlateau gridPlateau = new GridPlateau();
         NullPointerException exception = assertThrows(
                 NullPointerException.class,
-                () -> gridPlateau.setTile(new Position(3,5 ), Terrian.Obstructed.name()));
+                () -> gridPlateau.setTile(new Position(3,5 ), Terrain.Obstructed.name()));
         assertEquals(exception.getMessage(), "Cannot load from object array because \"this.grid\" is null");
 
         // Assertions.assertEquals(true, gridPlateau.isCellObstructed(new Position(3,5 )));
@@ -173,7 +173,7 @@ public class GridPlateauTest {
     public void gridSetTile() {
         GridPlateau gridPlateau = new GridPlateau();
         gridPlateau.initialize(10,10);
-        gridPlateau.setTile(new Position(3,5), Terrian.Obstructed.name());
+        gridPlateau.setTile(new Position(3,5), Terrain.Obstructed.name());
         assertEquals(true, gridPlateau.isCellObstructed(new Position(3,5)));
     }
 }

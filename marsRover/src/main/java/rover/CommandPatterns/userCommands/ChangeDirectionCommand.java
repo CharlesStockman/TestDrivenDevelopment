@@ -1,4 +1,4 @@
-package rover.CommandPattern.commands.commands;
+package rover.CommandPatterns.userCommands;
 
 import common.Position;
 import rover.CompassPoint;
@@ -6,10 +6,13 @@ import rover.CompassPoint;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChangeDirectionCommand implements CommandInterface {
+/**
+ * A command to change the direction the rover is facing.
+ */
+public class ChangeDirectionCommand implements CommandInterface<CompassPoint> {
 
 
-    private static Map<String, CompassPoint> getNewCompassPoint = null;
+    private static Map<String, CompassPoint> getNewCompassPoint;
 
     static {
         getNewCompassPoint = new HashMap<>();
@@ -21,9 +24,6 @@ public class ChangeDirectionCommand implements CommandInterface {
         getNewCompassPoint.put("R" + CompassPoint.E.name(), CompassPoint.S);
         getNewCompassPoint.put("R" + CompassPoint.S.name(), CompassPoint.W);
         getNewCompassPoint.put("R" + CompassPoint.W.name(), CompassPoint.N);
-    }
-
-    public ChangeDirectionCommand() {
     }
 
     @Override

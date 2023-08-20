@@ -1,10 +1,12 @@
-package rover.CommandPattern.commands.internalCommands;
+package rover.CommandPatterns.internalCommands;
 
 import common.Position;
 import rover.CompassPoint;
-import rover.CommandPattern.commands.internalCommands.CommandInterface;
-import rover.CommandPattern.commands.History;
+import rover.CommandPatterns.History;
 
+/**
+ * The commands that is executed first to rest the history log and log the default information
+ */
 public class StartCommand implements CommandInterface<Boolean> {
 
     Character command;

@@ -3,6 +3,8 @@ package common;
 import lombok.Data;
 
 /*
+ * To model a cell from the @Link { gridPlateau.GridPlateau }
+ *
  * Note need @Data for the equals() member function so JUnit equal will not compare the references, but the data.
  */
 @Data
