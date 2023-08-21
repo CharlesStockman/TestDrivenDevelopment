@@ -29,5 +29,5 @@ Hints:
 # Lessons 
 
 1. Don't worry about what the code looks like when your moving the test from fail to pass.  
-2. Before writing anything think about it.  For example there is a katra that does a add by using a stringl
-| Way it could be resolved | 
+2. Before writing anything think about it.  For example there is a Katra that does an add by using a string 
+there is three ways the input can be extracted : string manipulation, regular expressions or a parser. If I solved this problem again, I might have  started with regular expressions or a parser.     When doing Test Driven Development, I want to focus on the best solution as early as possible since it give me more time to work on innovative solutions.
