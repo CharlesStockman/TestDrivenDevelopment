@@ -4,11 +4,12 @@ import common.Position;
 import gridPlateau.GridPlateau;
 import lombok.Data;
 import rover.CompassPoint;
+import rover.RoverData;
 
 /**
  * A command to move the rover one position in the direction that the rover is pointing in.
  */
-public class MoveCommand implements CommandInterface<MoveCommand.PositionData> {
+public class MoveCommand implements CommandInterface<RoverData> {
 
     private final GridPlateau gridPlateau;
 
@@ -17,7 +18,7 @@ public class MoveCommand implements CommandInterface<MoveCommand.PositionData> {
     }
 
     @Override
-    public PositionData execute(Character command , CompassPoint compassPoint, Position position) {
+    public RoverData execute(String command , CompassPoint compassPoint, Position position) {
 
         Position newPosition = null;
         String otherInformation;
@@ -44,9 +45,9 @@ public class MoveCommand implements CommandInterface<MoveCommand.PositionData> {
             positionData.setPosition(newPosition);
         }
 
-        addEventHistory('M',compassPoint, positionData.getPosition(), otherInformation);
+        addEventHistory("M",compassPoint, positionData.getPosition(), otherInformation);
 
-        return positionData;
+        return create(compassPoint, positionData.getPosition(), positionData.isObstructed);
     }
 
     @Data

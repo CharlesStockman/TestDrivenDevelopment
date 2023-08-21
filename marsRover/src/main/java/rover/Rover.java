@@ -7,33 +7,24 @@ import rover.CommandPatterns.userCommands.MoveCommand;
 import rover.CommandPatterns.internalCommands.StartCommand;
 import rover.CommandPatterns.internalCommands.ValidateCommand;
 
+import static java.lang.Boolean.TRUE;
+
 public class Rover {
 
-    private Position position;
-    private CompassPoint compassPoint;
     private GridPlateau gridPlateau;
 
 
     public Rover(GridPlateau gridPlateau) {
-        this();
         this.gridPlateau = gridPlateau;
-
     }
 
-    public Rover() {
-        this.position = new Position(0, 0);
-        this.compassPoint = CompassPoint.N;
+    public Rover() {}
+
+    public String displayCoordinatesAndDirection(CompassPoint compassPoint, Position position, Boolean isObstructured) {
+        return String.format("%s%d:%d:%s", ((isObstructured == TRUE ) ? "O:" : ""),  position.getX(), position.getY(), compassPoint);
     }
 
-    public String displayCoordinatesAndDirection() {
-        return String.format("%d:%d:%s", position.getX(), position.getY(), compassPoint);
-    }
-
-    public String displayObstructedCoordinatesAndDirection(CompassPoint compassPoint, Position position) {
-        return String.format("O:%d:%d:%s", position.getX(), position.getY(), compassPoint);
-    }
-
-    public String move(String input) {
+    public String move(String input, CompassPoint compassPoint, Position position) {
 
         if (input == null)
             throw new NullPointerException("The input to the move function is null");
@@ -41,19 +32,18 @@ public class Rover {
         (new StartCommand(Character.MIN_VALUE, CompassPoint.N, new Position(0, 0))).execute();
         input = (new ValidateCommand(input)).execute();
 
-        MoveCommand.PositionData positionData = null;
+        RoverData roverData = new RoverData(compassPoint, position, Boolean.FALSE);
         for (Character c : input.toCharArray()) {
-            if (c == 'L' || c == 'R')
-                this.compassPoint = (new ChangeDirectionCommand()).execute(c, compassPoint, position);
+            if (c == 'L' || c == 'R') {
+                roverData = (new ChangeDirectionCommand()).execute(c.toString(), roverData.getCompassPoint(), roverData.getPosition());
+            }
             else if (c == 'M') {
-                positionData = (new MoveCommand(gridPlateau)).execute(c, compassPoint, position);
-                if ( positionData.isObstructed())
+                roverData = (new MoveCommand(gridPlateau)).execute(c.toString(), roverData.getCompassPoint(), roverData.getPosition());
+                if ( roverData.getIsObstructed())
                     break;
-                else
-                    this.position = positionData.getPosition();
             }
         }
 
-        return (positionData != null && positionData.isObstructed() ) ? displayObstructedCoordinatesAndDirection(compassPoint, position) : displayCoordinatesAndDirection();
+        return displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
     }
 }

@@ -11,7 +11,7 @@ import rover.CompassPoint;
 public interface CommandInterface<T> {
      T  execute();
 
-    default void addEventHistory(Character command, CompassPoint compassPoint, Position position, String otherInformation) {
+    default void addEventHistory(String command, CompassPoint compassPoint, Position position, String otherInformation) {
         History.getInstance().addEvent(command, compassPoint, position);
     }
 

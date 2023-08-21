@@ -18,7 +18,7 @@ public class History {
 
 
     private History() {
-        eventList =  ( eventList == null ) ? new ArrayList<>() : eventList;
+        eventList = new ArrayList<>();
     }
 
     public static History getInstance() {
@@ -33,7 +33,7 @@ public class History {
      * @param compassPoint          The final direction of the rover for the event being logged.
      * @param position              The final position of the rove from the @Link { gridPlateau.GridPlateau }
      */
-    public void addEvent(Character command, CompassPoint compassPoint, Position position) {
+    public void addEvent(String command, CompassPoint compassPoint, Position position) {
         Event event = new Event(command, compassPoint, position);
         eventList.add(event);
     }
@@ -48,12 +48,12 @@ public class History {
 
     @Data
     public static class Event {
-        Character command;
+        String command;
         CompassPoint direction;
         Position position;
         //String finalPositionAndDirection;
 
-        public Event(Character command, CompassPoint direction, Position position) {
+        public Event(String command, CompassPoint direction, Position position) {
             this.command = command;
             this.direction = direction;
             this.position = position;

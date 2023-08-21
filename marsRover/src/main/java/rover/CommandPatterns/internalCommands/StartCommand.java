@@ -22,7 +22,7 @@ public class StartCommand implements CommandInterface<Boolean> {
     @Override
     public Boolean execute() {
         History.getInstance().clearHistory();
-        addEventHistory(Character.MIN_VALUE, compassPoint, position, "");
+        addEventHistory(String.valueOf(Character.MIN_VALUE), compassPoint, position, "");
         return true;
     }
 }

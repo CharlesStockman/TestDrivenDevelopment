@@ -2,6 +2,7 @@ package rover.CommandPatterns.userCommands;
 
 import common.Position;
 import rover.CompassPoint;
+import rover.RoverData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,10 +10,10 @@ import java.util.Map;
 /**
  * A command to change the direction the rover is facing.
  */
-public class ChangeDirectionCommand implements CommandInterface<CompassPoint> {
+public class ChangeDirectionCommand implements CommandInterface<RoverData> {
 
 
-    private static Map<String, CompassPoint> getNewCompassPoint;
+    private static final Map<String, CompassPoint> getNewCompassPoint;
 
     static {
         getNewCompassPoint = new HashMap<>();
@@ -27,9 +28,9 @@ public class ChangeDirectionCommand implements CommandInterface<CompassPoint> {
     }
 
     @Override
-    public CompassPoint execute(Character command, CompassPoint compassPoint, Position position ) {
+    public RoverData execute(String command, CompassPoint compassPoint, Position position ) {
         CompassPoint newCompassPoint = getNewCompassPoint.get(command + compassPoint.name());
-        addEventHistory('L', newCompassPoint, position, "");
-        return newCompassPoint;
+        addEventHistory( command, newCompassPoint, position, "");
+        return create(newCompassPoint, position, false );
     }
 }
