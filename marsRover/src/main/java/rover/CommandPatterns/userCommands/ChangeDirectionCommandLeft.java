@@ -1,0 +1,22 @@
+package rover.CommandPatterns.userCommands;
+
+import common.Position;
+import rover.CompassPoint;
+import rover.RoverData;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * A command to change the direction the rover is facing.
+ */
+public class ChangeDirectionCommandLeft extends ChangeDirectionCommand {
+
+    {
+        getNewCompassPoint = new HashMap<>();
+        getNewCompassPoint.put("L" + CompassPoint.N.name(), CompassPoint.W);
+        getNewCompassPoint.put("L" + CompassPoint.W.name(), CompassPoint.S);
+        getNewCompassPoint.put("L" + CompassPoint.S.name(), CompassPoint.E);
+        getNewCompassPoint.put("L" + CompassPoint.E.name(), CompassPoint.N);
+    }
+}
