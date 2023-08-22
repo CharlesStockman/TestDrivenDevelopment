@@ -36,13 +36,13 @@ public class Rover {
         RoverData roverData = new RoverData(compassPoint, position, Boolean.FALSE);
         for (Character c : input.toCharArray()) {
             if (c == 'L' ) {
-                roverData = (new ChangeDirectionCommandLeft()).execute(c.toString(), roverData.getCompassPoint(), roverData.getPosition());
+                roverData = (new ChangeDirectionCommandLeft()).execute(roverData.getCompassPoint(), roverData.getPosition());
             }
             else if ( c =='R' ) {
-                roverData = (new ChangeDirectionCommandRight()).execute(c.toString(), roverData.getCompassPoint(), roverData.getPosition());
+                roverData = (new ChangeDirectionCommandRight()).execute(roverData.getCompassPoint(), roverData.getPosition());
             }
             else if (c == 'M') {
-                roverData = (new MoveCommand(gridPlateau)).execute(c.toString(), roverData.getCompassPoint(), roverData.getPosition());
+                roverData = (new MoveCommand(gridPlateau)).execute(roverData.getCompassPoint(), roverData.getPosition());
                 if ( roverData.getIsObstructed())
                     break;
             }

@@ -11,6 +11,8 @@ import rover.RoverData;
  */
 public class MoveCommand implements CommandInterface<RoverData> {
 
+    private String commandName = "M";
+
     private final GridPlateau gridPlateau;
 
     public MoveCommand(GridPlateau gridPlateau) {
@@ -18,7 +20,7 @@ public class MoveCommand implements CommandInterface<RoverData> {
     }
 
     @Override
-    public RoverData execute(String command , CompassPoint compassPoint, Position position) {
+    public RoverData execute(CompassPoint compassPoint, Position position) {
 
         Position newPosition = null;
         String otherInformation;
@@ -45,8 +47,7 @@ public class MoveCommand implements CommandInterface<RoverData> {
             positionData.setPosition(newPosition);
         }
 
-        addEventHistory("M",compassPoint, positionData.getPosition(), otherInformation);
-
+        addEventHistory( commandName, compassPoint, positionData.getPosition(), otherInformation);
         return create(compassPoint, positionData.getPosition(), positionData.isObstructed);
     }
 

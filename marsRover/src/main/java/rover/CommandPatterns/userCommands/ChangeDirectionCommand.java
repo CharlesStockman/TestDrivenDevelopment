@@ -11,12 +11,14 @@ import java.util.Map;
  */
 public abstract class ChangeDirectionCommand implements CommandInterface {
 
+    protected String commandName = "";
+
     protected static Map<String, CompassPoint> getNewCompassPoint = null;
 
     @Override
-    public RoverData execute(String command, CompassPoint compassPoint, Position position ) {
-        CompassPoint newCompassPoint = getNewCompassPoint.get(command + compassPoint.name());
-        addEventHistory( command, newCompassPoint, position, "");
+    public RoverData execute(CompassPoint compassPoint, Position position ) {
+        CompassPoint newCompassPoint = getNewCompassPoint.get(commandName + compassPoint.name());
+        addEventHistory( commandName, newCompassPoint, position, "");
         return create(newCompassPoint, position, false );
     }
 
