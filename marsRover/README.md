@@ -19,4 +19,5 @@ the same for each function so I could create a list of commands and then execute
 could be 20 parameters needed to control the rover the code may have to be modified.</li>
 <li>Remember save validation and error checking until end since certain public function could become private 
 functions during and may need validation.</li>
+<li>Notices that I am more selective when I am choosing a failed test to debug an issue with.  Usually look for the simpliest test</li>
 </ol>
