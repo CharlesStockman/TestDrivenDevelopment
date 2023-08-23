@@ -1,11 +1,8 @@
 package rover.CommandPatterns.userCommands;
 
-import common.Position;
 import rover.CompassPoint;
-import rover.RoverData;
 
 import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A command to change the direction the rover is facing.

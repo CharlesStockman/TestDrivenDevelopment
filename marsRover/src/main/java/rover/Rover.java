@@ -3,9 +3,6 @@ package rover;
 import gridPlateau.GridPlateau;
 import common.Position;
 import rover.CommandPatterns.internalCommands.ExecuteCommands;
-import rover.CommandPatterns.userCommands.ChangeDirectionCommandLeft;
-import rover.CommandPatterns.userCommands.ChangeDirectionCommandRight;
-import rover.CommandPatterns.userCommands.MoveCommand;
 import rover.CommandPatterns.internalCommands.StartCommand;
 import rover.CommandPatterns.internalCommands.ValidateCommand;
 

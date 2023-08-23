@@ -13,9 +13,8 @@ import java.util.List;
  */
 public class History {
 
-    private List<Event> eventList = null;
+    private final List<Event> eventList;
     private static History history;
-
 
     private History() {
         eventList = new ArrayList<>();

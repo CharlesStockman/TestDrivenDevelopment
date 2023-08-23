@@ -11,7 +11,7 @@ import rover.RoverData;
  */
 public class MoveCommand implements CommandInterface<RoverData> {
 
-    private String commandName = "M";
+    private final String commandName = "M";
 
     private final GridPlateau gridPlateau;
 
@@ -20,40 +20,36 @@ public class MoveCommand implements CommandInterface<RoverData> {
     }
 
     @Override
-    public RoverData execute(RoverData rover) {
+    public RoverData execute(RoverData roverData) {
 
         Position newPosition = null;
         String otherInformation;
 
-        if (rover.getCompassPoint() == CompassPoint.N)
-            newPosition = rover.getPosition().moveVerticalUp();
-        else if (rover.getCompassPoint() == CompassPoint.E)
-            newPosition = rover.getPosition().moveHorizontalRight();
-        else if (rover.getCompassPoint() == CompassPoint.S)
-            newPosition = rover.getPosition().moveVerticalDown();
-        else if (rover.getCompassPoint() == CompassPoint.W)
-            newPosition = rover.getPosition().moveHorizontalLeft();
+        if (roverData.getCompassPoint() == CompassPoint.N)
+            newPosition = roverData.getPosition().moveVerticalUp();
+        else if (roverData.getCompassPoint() == CompassPoint.E)
+            newPosition = roverData.getPosition().moveHorizontalRight();
+        else if (roverData.getCompassPoint() == CompassPoint.S)
+            newPosition = roverData.getPosition().moveVerticalDown();
+        else if (roverData.getCompassPoint() == CompassPoint.W)
+            newPosition = roverData.getPosition().moveHorizontalLeft();
 
         newPosition = newPosition.wrap(10,10);
 
-        PositionData positionData = new PositionData();
+        RoverData newRoverData = new RoverData();
+        newRoverData.setCompassPoint(roverData.getCompassPoint());
+
         if (gridPlateau != null && gridPlateau.isCellObstructed(newPosition)) {
             otherInformation = "obstructed:true";
-            positionData.setObstructed(true);
-            positionData.setPosition(rover.getPosition());
+            newRoverData.setIsObstructed(true);
+            newRoverData.setPosition(roverData.getPosition());
         } else {
             otherInformation = "obstructed:false";
-            positionData.setObstructed(false);
-            positionData.setPosition(newPosition);
+            newRoverData.setIsObstructed(false);
+            newRoverData.setPosition(newPosition);
         }
 
-        addEventHistory( commandName, rover.getCompassPoint(), positionData.getPosition(), otherInformation);
-        return create(rover.getCompassPoint(), positionData.getPosition(), positionData.isObstructed);
-    }
-
-    @Data
-    public static class PositionData {
-        private Position position;
-        private boolean isObstructed;
+        addEventHistory( commandName, newRoverData.getCompassPoint(), newRoverData.getPosition(), otherInformation);
+        return create(newRoverData.getCompassPoint(), newRoverData.getPosition(), newRoverData.getIsObstructed());
     }
 }

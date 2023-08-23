@@ -1,15 +1,14 @@
 package rover.CommandPatterns.userCommands;
 
-import common.Position;
 import rover.CompassPoint;
 import rover.RoverData;
 
 import java.util.Map;
 
 /**
- *
+ * An abstract command that changes the direction
  */
-public abstract class ChangeDirectionCommand implements CommandInterface {
+public abstract class ChangeDirectionCommand implements CommandInterface<RoverData> {
 
     protected String commandName = "";
 
