@@ -20,19 +20,19 @@ public class MoveCommand implements CommandInterface<RoverData> {
     }
 
     @Override
-    public RoverData execute(CompassPoint compassPoint, Position position) {
+    public RoverData execute(RoverData rover) {
 
         Position newPosition = null;
         String otherInformation;
 
-        if (compassPoint == CompassPoint.N)
-            newPosition = position.moveVerticalUp();
-        else if (compassPoint == CompassPoint.E)
-            newPosition = position.moveHorizontalRight();
-        else if (compassPoint == CompassPoint.S)
-            newPosition = position.moveVerticalDown();
-        else if (compassPoint == CompassPoint.W)
-            newPosition = position.moveHorizontalLeft();
+        if (rover.getCompassPoint() == CompassPoint.N)
+            newPosition = rover.getPosition().moveVerticalUp();
+        else if (rover.getCompassPoint() == CompassPoint.E)
+            newPosition = rover.getPosition().moveHorizontalRight();
+        else if (rover.getCompassPoint() == CompassPoint.S)
+            newPosition = rover.getPosition().moveVerticalDown();
+        else if (rover.getCompassPoint() == CompassPoint.W)
+            newPosition = rover.getPosition().moveHorizontalLeft();
 
         newPosition = newPosition.wrap(10,10);
 
@@ -40,15 +40,15 @@ public class MoveCommand implements CommandInterface<RoverData> {
         if (gridPlateau != null && gridPlateau.isCellObstructed(newPosition)) {
             otherInformation = "obstructed:true";
             positionData.setObstructed(true);
-            positionData.setPosition(position);
+            positionData.setPosition(rover.getPosition());
         } else {
             otherInformation = "obstructed:false";
             positionData.setObstructed(false);
             positionData.setPosition(newPosition);
         }
 
-        addEventHistory( commandName, compassPoint, positionData.getPosition(), otherInformation);
-        return create(compassPoint, positionData.getPosition(), positionData.isObstructed);
+        addEventHistory( commandName, rover.getCompassPoint(), positionData.getPosition(), otherInformation);
+        return create(rover.getCompassPoint(), positionData.getPosition(), positionData.isObstructed);
     }
 
     @Data

@@ -2,6 +2,7 @@ package rover;
 
 import gridPlateau.GridPlateau;
 import common.Position;
+import rover.CommandPatterns.internalCommands.ExecuteCommands;
 import rover.CommandPatterns.userCommands.ChangeDirectionCommandLeft;
 import rover.CommandPatterns.userCommands.ChangeDirectionCommandRight;
 import rover.CommandPatterns.userCommands.MoveCommand;
@@ -32,21 +33,7 @@ public class Rover {
 
         (new StartCommand(Character.MIN_VALUE, CompassPoint.N, new Position(0, 0))).execute();
         input = (new ValidateCommand(input)).execute();
-
-        RoverData roverData = new RoverData(compassPoint, position, Boolean.FALSE);
-        for (Character c : input.toCharArray()) {
-            if (c == 'L' ) {
-                roverData = (new ChangeDirectionCommandLeft()).execute(roverData.getCompassPoint(), roverData.getPosition());
-            }
-            else if ( c =='R' ) {
-                roverData = (new ChangeDirectionCommandRight()).execute(roverData.getCompassPoint(), roverData.getPosition());
-            }
-            else if (c == 'M') {
-                roverData = (new MoveCommand(gridPlateau)).execute(roverData.getCompassPoint(), roverData.getPosition());
-                if ( roverData.getIsObstructed())
-                    break;
-            }
-        }
+        RoverData roverData = (new ExecuteCommands(input, compassPoint, position, gridPlateau)).execute();
 
         return displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
     }

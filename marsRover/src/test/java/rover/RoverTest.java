@@ -35,6 +35,7 @@ public class RoverTest {
 
     @Test
     public void inputMoveCommandsIsEmptyString() {
+        RoverData roverData = new RoverData(startingCompassDirection, startingPosition, false);
         Assertions.assertEquals("0:0:N", (new Rover()).move("", startingCompassDirection, startingPosition));
     }
 

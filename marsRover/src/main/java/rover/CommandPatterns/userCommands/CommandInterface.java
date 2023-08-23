@@ -10,7 +10,7 @@ import rover.RoverData;
  * @param <T>   The return type of the command.
  */
 public interface CommandInterface<T> {
-     T  execute(CompassPoint compassPoint, Position position );
+     T  execute(RoverData roverData);
 
     default void addEventHistory(String command, CompassPoint compassPoint, Position position, String otherInformation) {
         History.getInstance().addEvent(command, compassPoint, position);
