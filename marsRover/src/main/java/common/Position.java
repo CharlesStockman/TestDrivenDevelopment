@@ -26,20 +26,20 @@ public class Position {
         return y;
     }
 
-    public Position moveVerticalUp() {
-        return new Position(x, y + 1);
+    public static Position  moveVerticalUp(Position position) {
+        return new Position(position.getX(), position.getY() + 1);
     }
 
-    public Position moveVerticalDown() {
-        return new Position(x , y - 1);
+    public static Position moveVerticalDown(Position position) {
+        return new Position(position.getX() , position.getY() - 1);
     }
 
-    public Position moveHorizontalLeft() {
-        return new Position(x - 1, y);
+    public static Position moveHorizontalLeft(Position position) {
+        return new Position(position.getX() - 1, position.getY());
     }
 
-    public Position moveHorizontalRight() {
-        return new Position(x + 1, y);
+    public static Position moveHorizontalRight(Position position) {
+        return new Position(position.getX() + 1, position.getY());
     }
 
     public Position wrap(Integer maxX, Integer maxY) {

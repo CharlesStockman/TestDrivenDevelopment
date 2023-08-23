@@ -56,13 +56,15 @@ public class RoverTest {
     @ParameterizedTest
     @CsvSource({"M, 0:1:N", "RM, 1:0:E", "MLLM, 0:0:S", "RMLLM, 0:0:W"})
     public void inputMoveCommandMove(String command, String result) {
-        Assertions.assertEquals(result, (new Rover()).move(command, startingCompassDirection, startingPosition));
+        Assertions.assertEquals(result, (new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions())).
+                move(command, startingCompassDirection, startingPosition));
     }
 
     @ParameterizedTest
     @CsvSource({"MMMMMMMMMM, 0:0:N", "MMMMMMMMMM, 0:0:N", "LLM, 0:9:S", "LM, 9:0:W", "RMMMMMMMMMM, 0:0:E"})
     public void inputMoveCommandMoveGoesOffGrid(String command, String result) {
-        Assertions.assertEquals(result, (new Rover()).move(command, startingCompassDirection, startingPosition));
+        Assertions.assertEquals(result, (new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions())).
+                move(command, startingCompassDirection, startingPosition));
     }
 
     //
@@ -113,7 +115,7 @@ public class RoverTest {
 
     @Test
     public void moveArgumentInvalidLowerCase() {
-        Rover rover = new Rover();
+        Rover rover = new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions());
         Assertions.assertEquals("1:0:E", rover.move("rm", startingCompassDirection, startingPosition));
     }
 

@@ -6,10 +6,24 @@ import lombok.Data;
 import rover.CompassPoint;
 import rover.RoverData;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
 /**
  * A command to move the rover one position in the direction that the rover is pointing in.
  */
 public class MoveCommand implements CommandInterface<RoverData> {
+
+    private static Map<CompassPoint, Function<Position, Position>> movements;
+
+    static {
+        movements = new HashMap<>();
+        movements.put(CompassPoint.N, Position::moveVerticalUp);
+        movements.put(CompassPoint.E, Position::moveHorizontalRight);
+        movements.put(CompassPoint.S, Position::moveVerticalDown);
+        movements.put(CompassPoint.W, Position::moveHorizontalLeft);
+    }
 
     private final String commandName = "M";
 
@@ -22,19 +36,10 @@ public class MoveCommand implements CommandInterface<RoverData> {
     @Override
     public RoverData execute(RoverData roverData) {
 
-        Position newPosition = null;
         String otherInformation;
 
-        if (roverData.getCompassPoint() == CompassPoint.N)
-            newPosition = roverData.getPosition().moveVerticalUp();
-        else if (roverData.getCompassPoint() == CompassPoint.E)
-            newPosition = roverData.getPosition().moveHorizontalRight();
-        else if (roverData.getCompassPoint() == CompassPoint.S)
-            newPosition = roverData.getPosition().moveVerticalDown();
-        else if (roverData.getCompassPoint() == CompassPoint.W)
-            newPosition = roverData.getPosition().moveHorizontalLeft();
-
-        newPosition = newPosition.wrap(10,10);
+        Position newPosition = movements.get(roverData.getCompassPoint()).apply(roverData.getPosition()).wrap(
+                gridPlateau.getLength(), gridPlateau.getWidth());
 
         RoverData newRoverData = new RoverData();
         newRoverData.setCompassPoint(roverData.getCompassPoint());
