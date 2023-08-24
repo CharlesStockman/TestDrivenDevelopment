@@ -18,7 +18,7 @@ public abstract class ChangeDirectionCommand implements CommandInterface<RoverDa
     public RoverData execute(RoverData roverData) {
         CompassPoint newCompassPoint = getNewCompassPoint.get(commandName + roverData.getCompassPoint().name());
         addEventHistory( commandName, newCompassPoint, roverData.getPosition(), "");
-        return create(newCompassPoint, roverData.getPosition(), false );
+        return create(newCompassPoint, roverData.getPosition(), false, roverData.getGridPlateau() );
     }
 
 }

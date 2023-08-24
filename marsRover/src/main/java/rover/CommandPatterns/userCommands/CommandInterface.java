@@ -1,6 +1,7 @@
 package rover.CommandPatterns.userCommands;
 
 import common.Position;
+import gridPlateau.GridPlateau;
 import rover.CommandPatterns.History;
 import rover.CompassPoint;
 import rover.RoverData;
@@ -16,7 +17,7 @@ public interface CommandInterface<T> {
         History.getInstance().addEvent(command, compassPoint, position);
     }
 
-    default RoverData create( CompassPoint compassPoint, Position position, Boolean isObstructed ) {
-        return new RoverData(compassPoint, position, isObstructed);
+    default RoverData create(CompassPoint compassPoint, Position position, Boolean isObstructed, GridPlateau gridPlateau) {
+        return new RoverData(compassPoint, position, isObstructed, gridPlateau);
     }
 }

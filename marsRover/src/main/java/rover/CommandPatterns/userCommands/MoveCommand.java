@@ -27,24 +27,18 @@ public class MoveCommand implements CommandInterface<RoverData> {
 
     private final String commandName = "M";
 
-    private final GridPlateau gridPlateau;
-
-    public MoveCommand(GridPlateau gridPlateau) {
-        this.gridPlateau = gridPlateau;
-    }
-
     @Override
     public RoverData execute(RoverData roverData) {
 
         String otherInformation;
 
         Position newPosition = movements.get(roverData.getCompassPoint()).apply(roverData.getPosition()).wrap(
-                gridPlateau.getLength(), gridPlateau.getWidth());
+                roverData.getGridPlateau().getLength(), roverData.getGridPlateau().getWidth());
 
         RoverData newRoverData = new RoverData();
         newRoverData.setCompassPoint(roverData.getCompassPoint());
 
-        if (gridPlateau != null && gridPlateau.isCellObstructed(newPosition)) {
+        if (roverData.getGridPlateau().isCellObstructed(newPosition)) {
             otherInformation = "obstructed:true";
             newRoverData.setIsObstructed(true);
             newRoverData.setPosition(roverData.getPosition());
@@ -55,6 +49,6 @@ public class MoveCommand implements CommandInterface<RoverData> {
         }
 
         addEventHistory( commandName, newRoverData.getCompassPoint(), newRoverData.getPosition(), otherInformation);
-        return create(newRoverData.getCompassPoint(), newRoverData.getPosition(), newRoverData.getIsObstructed());
+        return create(newRoverData.getCompassPoint(), newRoverData.getPosition(), newRoverData.getIsObstructed(), roverData.getGridPlateau());
     }
 }
