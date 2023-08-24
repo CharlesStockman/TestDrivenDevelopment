@@ -9,7 +9,9 @@ import rover.CommandPatterns.userCommands.MoveCommand;
 import rover.CompassPoint;
 import rover.RoverData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -23,7 +25,13 @@ public class ExecuteCommands implements CommandInterface<RoverData> {
     private final CompassPoint compassPoint;
     private final GridPlateau gridPlateau;
 
-    private static Map<String, Function<RoverData, RoverData>> functions;
+    private static Map<String, Function<RoverData, RoverData>> functions = new HashMap<>();
+
+    static {
+        functions.put("L", (new ChangeDirectionCommandLeft()::execute));
+        functions.put("R", (new ChangeDirectionCommandRight()::execute));
+        functions.put("M", (new MoveCommand()::execute));
+    }
 
     public ExecuteCommands(String commandString, CompassPoint compassPoint, Position position, GridPlateau gridPlateau) {
         this.commandString = commandString;
@@ -35,16 +43,26 @@ public class ExecuteCommands implements CommandInterface<RoverData> {
     @Override
     public RoverData execute() {
         RoverData roverData = new RoverData(compassPoint, position, Boolean.FALSE, gridPlateau);
-        for (Character c : commandString.toCharArray()) {
-            if (c == 'L' )
-                roverData = (new ChangeDirectionCommandLeft()).execute(roverData);
-            else if ( c =='R' )
-                roverData = (new ChangeDirectionCommandRight()).execute(roverData);
-            else if (c == 'M') {
-                roverData = (new MoveCommand()).execute(roverData);
-                if ( roverData.getIsObstructed())
-                    break;
-            }
+//        for (Character c : commandString.toCharArray()) {
+//            if (c == 'L' )
+//                roverData = (new ChangeDirectionCommandLeft()).execute(roverData);
+//            else if ( c ==03NcNl->nj'R' )
+//                roverData = (new ChangeDirectionCommandRight()).execute(roverData);
+//            else if (c == 'M') {
+//                roverData = (new MoveCommand()).execute(roverData);
+//                if ( roverData.getIsObstructed())
+//                    break;
+//            }
+//         }
+
+        List<Function<RoverData, RoverData>> orderedCommands = new ArrayList<>();
+
+        for ( Character command : commandString.toCharArray() ) {
+            orderedCommands.add(functions.get(command.toString()));
+        }
+
+        for (Function<RoverData, RoverData> command : orderedCommands ) {
+            roverData = command.apply(roverData);
         }
 
          return roverData;

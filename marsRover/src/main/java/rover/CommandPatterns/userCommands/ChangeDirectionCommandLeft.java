@@ -11,7 +11,9 @@ public class ChangeDirectionCommandLeft extends ChangeDirectionCommand {
 
     {
         commandName = "L";
-        getNewCompassPoint = new HashMap<>();
+
+        if ( getNewCompassPoint == null )
+            getNewCompassPoint = new HashMap<>();
         getNewCompassPoint.put("L" + CompassPoint.N.name(), CompassPoint.W);
         getNewCompassPoint.put("L" + CompassPoint.W.name(), CompassPoint.S);
         getNewCompassPoint.put("L" + CompassPoint.S.name(), CompassPoint.E);
