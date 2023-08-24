@@ -29,7 +29,7 @@ public class RoverTest {
 
     @Test
     public void inputMoveForObstacle() {
-        GridPlateau gridPlateau = GridPlateauFactory.create_standard_grid_with_obstructed_list(new Position(0,2));
+        GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_obstructed_list(new Position(0,2));
         Assertions.assertEquals("O:0:1:N", (new Rover(gridPlateau)).move("MM", startingCompassDirection, startingPosition));
     }
 
@@ -55,14 +55,14 @@ public class RoverTest {
     @ParameterizedTest
     @CsvSource({"M, 0:1:N", "RM, 1:0:E", "MLLM, 0:0:S", "RMLLM, 0:0:W"})
     public void inputMoveCommandMove(String command, String result) {
-        Assertions.assertEquals(result, (new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions())).
+        Assertions.assertEquals(result, (new Rover(GridPlateauTestFactory.create_standard_grid_with_no_obstructions())).
                 move(command, startingCompassDirection, startingPosition));
     }
 
     @ParameterizedTest
     @CsvSource({"MMMMMMMMMM, 0:0:N", "MMMMMMMMMM, 0:0:N", "LLM, 0:9:S", "LM, 9:0:W", "RMMMMMMMMMM, 0:0:E"})
     public void inputMoveCommandMoveGoesOffGrid(String command, String result) {
-        Assertions.assertEquals(result, (new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions())).
+        Assertions.assertEquals(result, (new Rover(GridPlateauTestFactory.create_standard_grid_with_no_obstructions())).
                 move(command, startingCompassDirection, startingPosition));
     }
 
@@ -71,19 +71,19 @@ public class RoverTest {
     //
     @Test
     public void gridWithNoObstacles() {
-        Rover rover = new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions());
+        Rover rover = new Rover(GridPlateauTestFactory.create_standard_grid_with_no_obstructions());
         Assertions.assertEquals("2:3:N", rover.move("MMRMMLM", startingCompassDirection, startingPosition));
     }
 
     @Test
     public void gridWithWrap() {
-        Rover rover = new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions());
+        Rover rover = new Rover(GridPlateauTestFactory.create_standard_grid_with_no_obstructions());
         Assertions.assertEquals("0:0:N", rover.move("MMMMMMMMMM", startingCompassDirection, startingPosition));
     }
 
     @Test
     public void gridWithObstacle() {
-        GridPlateau gridPlateau = GridPlateauFactory.create_standard_grid_with_obstructed_list(new Position(0,3));
+        GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_obstructed_list(new Position(0,3));
         Assertions.assertEquals("O:0:2:N", (new Rover(gridPlateau)).move("MMMM", startingCompassDirection, startingPosition));
     }
 
@@ -91,7 +91,7 @@ public class RoverTest {
 
     @Test
     public void gridDisplayHistoryUptoThreeMoves() {
-        GridPlateau gridPlateau = GridPlateauFactory.create_standard_grid_with_obstructed_list(new Position(0,3));
+        GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_obstructed_list(new Position(0,3));
         Rover rover = new Rover(gridPlateau);
         Assertions.assertEquals("0:1:W", rover.move("ML", startingCompassDirection, startingPosition));
 
@@ -114,7 +114,7 @@ public class RoverTest {
 
     @Test
     public void moveArgumentInvalidLowerCase() {
-        Rover rover = new Rover(GridPlateauFactory.create_standard_grid_with_no_obstructions());
+        Rover rover = new Rover(GridPlateauTestFactory.create_standard_grid_with_no_obstructions());
         Assertions.assertEquals("1:0:E", rover.move("rm", startingCompassDirection, startingPosition));
     }
 
