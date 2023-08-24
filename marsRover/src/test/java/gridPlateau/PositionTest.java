@@ -3,7 +3,6 @@ package gridPlateau;
 import common.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import rover.RoverData;
 
 public class PositionTest {
 
@@ -17,7 +16,7 @@ public class PositionTest {
     @Test
     public void testMovePositiveVertical() {
         Position position = new Position(3,5);
-        position = position.moveVerticalUp(position);
+        position = Position.moveVerticalUp(position);
         Assertions.assertEquals(position.getX(), 3);
         Assertions.assertEquals(position.getY(), 6);
     }
@@ -25,7 +24,7 @@ public class PositionTest {
     @Test
     public void testMoveNegativeVertical() {
         Position position = new Position(3,5);
-        position = position.moveVerticalDown(position);
+        position = Position.moveVerticalDown(position);
         Assertions.assertEquals(position.getX(), 3);
         Assertions.assertEquals(position.getY(), 4);
     }
@@ -33,7 +32,7 @@ public class PositionTest {
     @Test
     public void testMoveLeftHorizontal() {
         Position position = new Position(3,5);
-        position = position.moveHorizontalLeft(position);
+        position = Position.moveHorizontalLeft(position);
         Assertions.assertEquals(position.getX(), 2);
         Assertions.assertEquals(position.getY(), 5);
     }
@@ -41,7 +40,7 @@ public class PositionTest {
     @Test
     public void testMoveRightHorizontal() {
         Position position = new Position(3,5);
-        position = position.moveHorizontalRight(position);
+        position = Position.moveHorizontalRight(position);
         Assertions.assertEquals(position.getX(), 4);
         Assertions.assertEquals(position.getY(), 5);
     }

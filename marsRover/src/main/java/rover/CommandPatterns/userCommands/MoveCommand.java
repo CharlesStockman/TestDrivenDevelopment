@@ -1,8 +1,6 @@
 package rover.CommandPatterns.userCommands;
 
 import common.Position;
-import gridPlateau.GridPlateau;
-import lombok.Data;
 import rover.CompassPoint;
 import rover.RoverData;
 
@@ -15,7 +13,7 @@ import java.util.function.Function;
  */
 public class MoveCommand implements CommandInterface<RoverData> {
 
-    private static Map<CompassPoint, Function<Position, Position>> movements;
+    private static final Map<CompassPoint, Function<Position, Position>> movements;
 
     static {
         movements = new HashMap<>();

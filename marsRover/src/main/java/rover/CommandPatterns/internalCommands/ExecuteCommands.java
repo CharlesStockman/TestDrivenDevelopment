@@ -25,7 +25,7 @@ public class ExecuteCommands implements CommandInterface<RoverData> {
     private final CompassPoint compassPoint;
     private final GridPlateau gridPlateau;
 
-    private static Map<String, Function<RoverData, RoverData>> functions = new HashMap<>();
+    private static final Map<String, Function<RoverData, RoverData>> functions = new HashMap<>();
 
     static {
         functions.put("L", (new ChangeDirectionCommandLeft()::execute));
@@ -43,18 +43,6 @@ public class ExecuteCommands implements CommandInterface<RoverData> {
     @Override
     public RoverData execute() {
         RoverData roverData = new RoverData(compassPoint, position, Boolean.FALSE, gridPlateau);
-//        for (Character c : commandString.toCharArray()) {
-//            if (c == 'L' )
-//                roverData = (new ChangeDirectionCommandLeft()).execute(roverData);
-//            else if ( c ==03NcNl->nj'R' )
-//                roverData = (new ChangeDirectionCommandRight()).execute(roverData);
-//            else if (c == 'M') {
-//                roverData = (new MoveCommand()).execute(roverData);
-//                if ( roverData.getIsObstructed())
-//                    break;
-//            }
-//         }
-
         List<Function<RoverData, RoverData>> orderedCommands = new ArrayList<>();
 
         for ( Character command : commandString.toCharArray() ) {
