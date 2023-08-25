@@ -17,20 +17,19 @@ public class Rover {
         this.gridPlateau = gridPlateau;
     }
 
-    public Rover() {}
 
     public String displayCoordinatesAndDirection(CompassPoint compassPoint, Position position, Boolean isObstructured) {
         return String.format("%s%d:%d:%s", ((isObstructured == TRUE ) ? "O:" : ""),  position.getX(), position.getY(), compassPoint);
     }
 
-    public String move(String input, CompassPoint compassPoint, Position position) {
+    public String executeInstructionsForRover(String commandString, CompassPoint compassPoint, Position position) {
 
-        if (input == null)
+        if (commandString == null)
             throw new NullPointerException("The input to the move function is null");
 
         (new StartCommand(Character.MIN_VALUE, CompassPoint.N, new Position(0, 0))).execute();
-        input = (new ValidateCommand(input)).execute();
-        RoverData roverData = (new ExecuteCommands(input, compassPoint, position, gridPlateau)).execute();
+        commandString = (new ValidateCommand(commandString)).execute();
+        RoverData roverData = (new ExecuteCommands(commandString, compassPoint, position, gridPlateau)).execute();
 
         return displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
     }
