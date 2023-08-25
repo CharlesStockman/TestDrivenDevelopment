@@ -24,12 +24,14 @@ public class Rover {
 
     public String executeInstructionsForRover(String commandString, CompassPoint compassPoint, Position position) {
 
+        RoverData initialRoverData = new RoverData(compassPoint, position, false, gridPlateau);
+
         if (commandString == null)
             throw new NullPointerException("The input to the move function is null");
 
-        (new StartCommand(Character.MIN_VALUE, CompassPoint.N, new Position(0, 0))).execute();
+        (new StartCommand(Character.MIN_VALUE, initialRoverData)).execute();
         commandString = (new ValidateCommand(commandString)).execute();
-        RoverData roverData = (new ExecuteCommands(commandString, compassPoint, position, gridPlateau)).execute();
+        RoverData roverData = (new ExecuteCommands(commandString, initialRoverData)).execute();
 
         return displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
     }

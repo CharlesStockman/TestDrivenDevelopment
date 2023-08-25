@@ -33,11 +33,11 @@ public class ExecuteCommands implements CommandInterface<RoverData> {
         functions.put("M", (new MoveCommand()::execute));
     }
 
-    public ExecuteCommands(String commandString, CompassPoint compassPoint, Position position, GridPlateau gridPlateau) {
+    public ExecuteCommands(String commandString, RoverData initialRoverData) {
         this.commandString = commandString;
-        this.compassPoint = compassPoint;
-        this.position = position;
-        this.gridPlateau = gridPlateau;
+        this.compassPoint = initialRoverData.getCompassPoint();
+        this.position = initialRoverData.getPosition();
+        this.gridPlateau = initialRoverData.getGridPlateau();
     }
 
     @Override

@@ -3,6 +3,7 @@ package rover.CommandPatterns.internalCommands;
 import common.Position;
 import rover.CompassPoint;
 import rover.CommandPatterns.History;
+import rover.RoverData;
 
 /**
  * The commands that is executed first to rest the history log and log the default information
@@ -13,10 +14,10 @@ public class StartCommand implements CommandInterface<Boolean> {
     CompassPoint compassPoint;
     Position position;
 
-    public StartCommand(Character command, CompassPoint compassPoint, Position position) {
+    public StartCommand(Character command, RoverData initialRoverData) {
         this.command = command;
-        this.compassPoint = compassPoint;
-        this.position = position;
+        this.compassPoint = initialRoverData.getCompassPoint();
+        this.position = initialRoverData.getPosition();
     }
 
     @Override
