@@ -2,20 +2,22 @@ package gridPlateau;
 
 import common.Position;
 import common.Terrain;
+import lombok.Value;
 
-import java.security.InvalidParameterException;
-import java.util.*;
+import java.util.Objects;
 
 /**
  * Represent part of martian plateau as a 2 Dimension Array where each cell has a @Link { gridPlateau.GridPlateau }
+ * The rover travels the martian plateau
  */
+@Value
 public class GridPlateau {
 
     public GridPlateau(String[][] grid) {
         this.grid = grid;
     }
 
-    private String[][] grid;
+    String[][] grid;
 
     public Boolean isCellObstructed(Position position ) {
         return Objects.equals(grid[position.getX()][position.getY()], Terrain.Obstructed.name());

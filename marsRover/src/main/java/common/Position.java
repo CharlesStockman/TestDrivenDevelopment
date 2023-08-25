@@ -1,17 +1,19 @@
 package common;
 
-import lombok.Data;
+import lombok.Value;
 
 /*
  * To model a cell from the @Link { gridPlateau.GridPlateau }
  *
- * Note need @Data for the equals() member function so JUnit equal will not compare the references, but the data.
+ * Note need @Value for the equals() member function so JUnit equal will not compare the references, but the data.
+ * @Value is immutable
+ * @Value make fields private and final
  */
-@Data
+@Value
 public class Position {
 
-    private final Integer x;
-    private final Integer y;
+    Integer x;
+    Integer y;
 
     public Position(Integer x, Integer y) {
         this.x = x;

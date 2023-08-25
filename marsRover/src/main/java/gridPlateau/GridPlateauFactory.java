@@ -14,14 +14,15 @@ import java.util.List;
  */
 public class GridPlateauFactory {
 
-    private String[][] grid;
-
     /**
-     * Handles basic creating a grid to allocate the 2D array and setting all cells to T
+     * Initialize the grid that part of the @Link { gridPlateau.rover }
      * @param maximum_x  The maximum maximum_x-coordinate
      * @param maximum_y  The maximum maximum_y-coordinate
+     * @return A 2D grid used by the GridPlateau Class.
      */
-    public GridPlateau initialize(int maximum_x, int maximum_y) {
+    private String[][] initializeGrid(Integer maximum_x, Integer maximum_y) {
+
+        String[][] grid;
 
         if ( maximum_x < 0 )
             throw new InvalidParameterException("create_grid() maximum_x parameter cannot be less then 0");
@@ -34,6 +35,18 @@ public class GridPlateauFactory {
             Arrays.fill(grid[index], Terrain.Normal.name());
         }
 
+        return grid;
+    }
+
+
+    /**
+     * Create a GridPlateau where all the terrain is normal
+     * @param maximum_x  The maximum maximum_x-coordinate
+     * @param maximum_y  The maximum maximum_y-coordinate
+     * @return A GridPlateau where all terrain is normal.
+     */
+    public GridPlateau initialize(int maximum_x, int maximum_y) {
+        String[][] grid = initializeGrid(maximum_x, maximum_y );
         return new GridPlateau(grid);
     }
 
@@ -41,14 +54,16 @@ public class GridPlateauFactory {
      * Handles create a terrain where a certain percent of the cells are Terrain and a certain percentage are Obstructed
      * @param maximum_x  The maximum maximum_x-coordinate
      * @param maximum_y  The maximum maximum_y-coordinate
+     * @return A @Link { gridPlateau.GridPlateau } with normal terran and percentage that is obstructed.
      */
     public GridPlateau initialize(int maximum_x, int maximum_y, float percent_obstructed) {
+
         int  obstructedMax = (int)(( maximum_x * maximum_y ) * percent_obstructed );
         if ( percent_obstructed == 100 ) {
             throw new InvalidParameterException("Percentage of Obstacles can only be 99% or less.  One space is needed for the Rover");
         }
 
-        initialize(maximum_x,maximum_y);
+        String[][] grid = initializeGrid(maximum_x,maximum_y);
         List<Position> randomizedList = createRandomizedList(maximum_x, maximum_y);
         for ( int index = 0; index < obstructedMax; index++) {
             grid[randomizedList.get(index).getX()][randomizedList.get(index).getY()] = Terrain.Obstructed.name();
@@ -61,6 +76,7 @@ public class GridPlateauFactory {
      * Handles create a terrain where a certain percent of the cells are Terrain and a certain percentage are Obstructed
      * @param maximum_x  The maximum maximum_x-coordinate
      * @param maximum_y  The maximum maximum_y-coordinate
+     * @return A @Link { gridPlateau.GridPlateau } with normal terran and specific number of obstructed tiles.
      */
     public GridPlateau initialize(int maximum_x, int maximum_y , List<Position> obstaclesPositions ) {
 
@@ -68,9 +84,9 @@ public class GridPlateauFactory {
             throw new NullPointerException("ObstaclePositions parameters must contain zero or more positions instances");
         }
 
-        initialize(maximum_x,maximum_y);
+        String[][] grid = initializeGrid(maximum_x,maximum_y);
         obstaclesPositions.forEach( (position) ->
-        { grid[position.getX()][position.getY()] = Terrain.Obstructed.name(); });
+                grid[position.getX()][position.getY()] = Terrain.Obstructed.name());
 
         return new GridPlateau(grid);
     }
