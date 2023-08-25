@@ -28,25 +28,14 @@ public class MoveCommand implements CommandInterface<RoverData> {
     @Override
     public RoverData execute(RoverData roverData) {
 
-        String otherInformation;
-
         Position newPosition = movements.get(roverData.getCompassPoint()).apply(roverData.getPosition()).wrap(
                 roverData.getGridPlateau().getLength(), roverData.getGridPlateau().getWidth());
 
-        RoverData newRoverData = new RoverData();
-        newRoverData.setCompassPoint(roverData.getCompassPoint());
+        boolean isObstructed = roverData.getGridPlateau().isCellObstructed(newPosition);
+        String otherInformation = ( isObstructed) ? "obstructed:true" : "obstructed:false";
+        Position finalPosition = ( isObstructed ) ? roverData.getPosition() : newPosition;
 
-        if (roverData.getGridPlateau().isCellObstructed(newPosition)) {
-            otherInformation = "obstructed:true";
-            newRoverData.setIsObstructed(true);
-            newRoverData.setPosition(roverData.getPosition());
-        } else {
-            otherInformation = "obstructed:false";
-            newRoverData.setIsObstructed(false);
-            newRoverData.setPosition(newPosition);
-        }
-
-        addEventHistory( commandName, newRoverData.getCompassPoint(), newRoverData.getPosition(), otherInformation);
-        return create(newRoverData.getCompassPoint(), newRoverData.getPosition(), newRoverData.getIsObstructed(), roverData.getGridPlateau());
+        addEventHistory( commandName, roverData.getCompassPoint(), finalPosition, otherInformation);
+        return create(roverData.getCompassPoint(), finalPosition, isObstructed, roverData.getGridPlateau());
     }
 }
