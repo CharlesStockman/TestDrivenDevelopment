@@ -1,6 +1,6 @@
 package gridPlateau;
 
-import common.Position;
+import utilities.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

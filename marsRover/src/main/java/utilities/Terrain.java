@@ -1,4 +1,4 @@
-package common;
+package utilities;
 
 /**
  * The type of land that the cell represents in @link { gridPlateau.GridPlateau }

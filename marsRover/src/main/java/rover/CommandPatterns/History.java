@@ -1,6 +1,6 @@
 package rover.CommandPatterns;
 
-import common.Position;
+import utilities.Position;
 import lombok.Data;
 import rover.CompassPoint;
 

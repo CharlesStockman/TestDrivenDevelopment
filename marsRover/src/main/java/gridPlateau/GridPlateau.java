@@ -1,7 +1,7 @@
 package gridPlateau;
 
-import common.Position;
-import common.Terrain;
+import utilities.Position;
+import utilities.Terrain;
 import lombok.Value;
 
 import java.util.Objects;

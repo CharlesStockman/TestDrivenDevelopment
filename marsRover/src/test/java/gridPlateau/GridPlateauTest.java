@@ -1,14 +1,12 @@
 package gridPlateau;
 
-import common.Position;
-import common.Terrain;
+import utilities.Position;
+import utilities.Terrain;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -1,6 +1,6 @@
 package rover.CommandPatterns.userCommands;
 
-import common.Position;
+import utilities.Position;
 import gridPlateau.GridPlateau;
 import rover.CommandPatterns.History;
 import rover.CompassPoint;

@@ -1,6 +1,6 @@
 package rover;
 
-import common.Position;
+import utilities.Position;
 import gridPlateau.GridPlateau;
 import lombok.AllArgsConstructor;
 import lombok.Value;

@@ -1,7 +1,7 @@
 package rover.CommandPatterns.internalCommands;
 
 
-import common.Position;
+import utilities.Position;
 import gridPlateau.GridPlateau;
 import rover.CommandPatterns.userCommands.ChangeDirectionCommandLeft;
 import rover.CommandPatterns.userCommands.ChangeDirectionCommandRight;

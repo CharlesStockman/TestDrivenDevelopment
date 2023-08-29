@@ -1,8 +1,7 @@
 package rover;
 
 import gridPlateau.GridPlateau;
-import common.Position;
-import gridPlateau.GridPlateauFactory;
+import utilities.Position;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

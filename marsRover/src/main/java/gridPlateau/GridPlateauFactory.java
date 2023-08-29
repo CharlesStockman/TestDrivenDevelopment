@@ -1,7 +1,7 @@
 package gridPlateau;
 
-import common.Position;
-import common.Terrain;
+import utilities.Position;
+import utilities.Terrain;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
