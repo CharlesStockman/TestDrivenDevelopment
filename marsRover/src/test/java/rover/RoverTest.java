@@ -110,9 +110,10 @@ public class RoverTest {
             History.Event actual   = actualEvents.get(index);
 
             Assertions.assertEquals(expected.getCommand(), actual.getCommand());
-            Assertions.assertEquals(expected.getPosition(), expected.getPosition());
-            Assertions.assertEquals(expected.getDirection(), expected.getDirection());
+            Assertions.assertEquals(expected.getRoverData().getPosition(), expected.getRoverData().getPosition());
+            Assertions.assertEquals(expected.getRoverData().getPosition(), expected.getRoverData().getPosition());
         }
+
     }
 
     @Test

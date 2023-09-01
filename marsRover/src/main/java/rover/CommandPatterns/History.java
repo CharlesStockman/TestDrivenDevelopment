@@ -1,5 +1,7 @@
 package rover.CommandPatterns;
 
+import gridPlateau.GridPlateau;
+import rover.RoverData;
 import utilities.Position;
 import lombok.Data;
 import rover.CompassPoint;
@@ -41,23 +43,19 @@ public class History {
         history = null;
     }
 
-    public List<Event> getHistory() {
+    public List<History.Event> getHistory() {
         return eventList;
     }
 
     @Data
     public static class Event {
         String command;
-        CompassPoint direction;
-        Position position;
-        //String finalPositionAndDirection;
+
+        RoverData roverData;
 
         public Event(String command, CompassPoint direction, Position position) {
-
             this.command = ( command.charAt(0) == Character.MIN_VALUE ) ? "Start Data" : command;
-            this.direction = direction;
-            this.position = position;
+            roverData = new RoverData(direction, position, false , null);
         }
-
     }
 }

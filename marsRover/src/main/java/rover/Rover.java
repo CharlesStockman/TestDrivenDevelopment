@@ -44,11 +44,13 @@ public class Rover {
         (new StartCommand(Character.MIN_VALUE, initialRoverData)).execute();
         commandString = (new ValidateCommand(commandString)).execute();
         RoverData roverData = (new ExecuteCommands(commandString, initialRoverData)).execute();
+
+        logger.fine("Commands Executed...");
         logger.fine("validated and fixed rover command string -- " + commandString + "\n");
 
-        logger.fine("Commands Executed...\n");
+
         List<History.Event> events = History.getInstance().getHistory();
-        events.forEach( (History.Event event) -> logger.info("\t" + event.toString() + "\n"));
+        events.forEach( ( History.Event eventData) -> logger.info(eventData.toString() + "\n"));
 
         String result =  displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
         logger.info("Final Compass Point and Grid Coordinates -- " + result +"\n");
