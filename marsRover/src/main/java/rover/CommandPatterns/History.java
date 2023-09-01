@@ -35,7 +35,8 @@ public class History {
      * @param position              The final position of the rove from the @Link { gridPlateau.GridPlateau }
      */
     public void addEvent(String command, CompassPoint compassPoint, Position position) {
-        Event event = new Event(command, compassPoint, position);
+        RoverData roverData = new RoverData(compassPoint, position, false, null);
+        Event event = new Event(command, roverData);
         eventList.add(event);
     }
 
@@ -53,9 +54,9 @@ public class History {
 
         RoverData roverData;
 
-        public Event(String command, CompassPoint direction, Position position) {
+        public Event(String command, RoverData roverData) {
             this.command = ( command.charAt(0) == Character.MIN_VALUE ) ? "Start Data" : command;
-            roverData = new RoverData(direction, position, false , null);
+            this.roverData = roverData;
         }
     }
 }

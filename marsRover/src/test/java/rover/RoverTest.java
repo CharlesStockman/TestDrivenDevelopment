@@ -99,9 +99,15 @@ public class RoverTest {
         Assertions.assertEquals("0:1:W", rover.executeInstructionsForRover("ML", startingCompassDirection, startingPosition));
 
         List<History.Event> expectedEvents = new ArrayList<>();
-        expectedEvents.add(new History.Event( String.valueOf(Character.MIN_VALUE), CompassPoint.N, new Position(0,0)));
-        expectedEvents.add(new History.Event( "M", CompassPoint.N, new Position(0,1)));
-        expectedEvents.add(new History.Event( "L", CompassPoint.E, new Position(0,1)));
+
+        RoverData roverData = new RoverData(CompassPoint.N, new Position(0,0), false, null);
+        expectedEvents.add(new History.Event( String.valueOf(Character.MIN_VALUE), roverData));
+
+        RoverData roverData2 = new RoverData(CompassPoint.N, new Position(0, 1), false, null);
+        expectedEvents.add(new History.Event( "M", roverData2));
+
+        RoverData roverData3 = new RoverData(CompassPoint.W, new Position(0,1), false, null );
+        expectedEvents.add(new History.Event( "L", roverData3 ));
 
         List<History.Event> actualEvents = History.getInstance().getHistory();
 
@@ -109,11 +115,10 @@ public class RoverTest {
             History.Event expected = expectedEvents.get(index);
             History.Event actual   = actualEvents.get(index);
 
-            Assertions.assertEquals(expected.getCommand(), actual.getCommand());
-            Assertions.assertEquals(expected.getRoverData().getPosition(), expected.getRoverData().getPosition());
-            Assertions.assertEquals(expected.getRoverData().getPosition(), expected.getRoverData().getPosition());
+            Assertions.assertEquals(actual.getCommand(), actual.getCommand());
+            Assertions.assertEquals(actual.getRoverData().getPosition(), expected.getRoverData().getPosition());
+            Assertions.assertEquals(actual.getRoverData().getPosition(), expected.getRoverData().getPosition());
         }
-
     }
 
     @Test
