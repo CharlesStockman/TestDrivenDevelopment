@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 /**
  * The command used to validate that the command in the Command Rover String are valid.
  */
-@Log
 public class ValidateCommand implements CommandInterface<String> {
 
     private String input;
@@ -44,8 +43,6 @@ public class ValidateCommand implements CommandInterface<String> {
 
         if ( buffer.length() > 0  )
             throw new InvalidParameterException(buffer.insert(0, "Command String : " + input + "\n").toString());
-
-        log.info("Validate over command string is " + input);
 
         return input;
     }

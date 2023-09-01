@@ -1,27 +1,29 @@
 package rover;
 
 import gridPlateau.GridPlateau;
+import utilities.MyLogger;
 import utilities.Position;
-import lombok.extern.java.Log;
 import rover.CommandPatterns.History;
 import rover.CommandPatterns.internalCommands.ExecuteCommands;
 import rover.CommandPatterns.internalCommands.StartCommand;
 import rover.CommandPatterns.internalCommands.ValidateCommand;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static java.lang.Boolean.TRUE;
 
-@Log
 public class Rover {
 
     private GridPlateau gridPlateau;
 
+    private final Logger logger;
 
     public Rover(GridPlateau gridPlateau) {
         this.gridPlateau = gridPlateau;
+        logger = (new MyLogger()).getLogger(Level.ALL);
     }
-
 
     public String displayCoordinatesAndDirection(CompassPoint compassPoint, Position position, Boolean isObstructured) {
         return String.format("%s%d:%d:%s", ((isObstructured == TRUE ) ? "O:" : ""),  position.getX(), position.getY(), compassPoint);
@@ -29,8 +31,10 @@ public class Rover {
 
     public String executeInstructionsForRover(String commandString, CompassPoint compassPoint, Position position) {
 
-        log.info("Entered ...");
-        log.info("original rover command string is" + commandString);
+        logger.setLevel(Level.FINER);
+
+        logger.log(Level.INFO, "Begin executeInstructionsForRover\n");
+        logger.fine("original rover command string            -- " + commandString + "\n");
 
         RoverData initialRoverData = new RoverData(compassPoint, position, false, gridPlateau);
 
@@ -40,13 +44,17 @@ public class Rover {
         (new StartCommand(Character.MIN_VALUE, initialRoverData)).execute();
         commandString = (new ValidateCommand(commandString)).execute();
         RoverData roverData = (new ExecuteCommands(commandString, initialRoverData)).execute();
+        logger.info("validated and fixed rover command string -- " + commandString + "\n");
+
 
         List<History.Event> events = History.getInstance().getHistory();
-        events.forEach( (History.Event event) -> log.info(event.toString()));
+        events.forEach( (History.Event event) -> logger.info(event.toString() + "\n"));
 
-        log.info("Exited: -----------------------------------");
+        String result =  displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
+        logger.info("Final Compass Point and Grid Coordinates -- " + result +"\n");
+        logger.info("Exited: -----------------------------------\n");
 
-        return displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
+        return result;
 
     }
 }

@@ -53,7 +53,8 @@ public class History {
         //String finalPositionAndDirection;
 
         public Event(String command, CompassPoint direction, Position position) {
-            this.command = command;
+
+            this.command = ( command.charAt(0) == Character.MIN_VALUE ) ? "Start Data" : command;
             this.direction = direction;
             this.position = position;
             //this.finalPositionAndDirection = displayCoordinatesAndDirection(position, direction);
