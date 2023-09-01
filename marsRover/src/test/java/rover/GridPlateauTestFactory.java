@@ -19,9 +19,4 @@ public class GridPlateauTestFactory {
         GridPlateauFactory gridPlateauFactory = new GridPlateauFactory();
         return gridPlateauFactory.initialize(10, 10, 0 );
     }
-
-    public static GridPlateau create_standard_grid_with_obstructed_percentage(Float percentage_obstructed) {
-        GridPlateauFactory gridPlateauFactory = new GridPlateauFactory();
-        return gridPlateauFactory.initialize(10,10, percentage_obstructed);
-    }
 }

@@ -14,5 +14,4 @@ public interface CommandInterface<T> {
     default void addEventHistory(String command, CompassPoint compassPoint, Position position, String otherInformation) {
         History.getInstance().addEvent(command, compassPoint, position);
     }
-
 }

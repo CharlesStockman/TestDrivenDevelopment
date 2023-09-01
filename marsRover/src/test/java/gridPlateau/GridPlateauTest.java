@@ -36,7 +36,7 @@ public class GridPlateauTest {
     }
 
     @Test
-    public void create_grid_with_normal_terrian() {
+    public void create_grid_with_normal_terrain() {
         GridPlateauFactory gridPlateauFactory = new GridPlateauFactory();
         GridPlateau gridPlateau = gridPlateauFactory.initialize(10,10);
         for ( int indexX = 0; indexX < 10; indexX++)
@@ -136,7 +136,6 @@ public class GridPlateauTest {
 
     @Test
     public void gridTestGetCorrectLengthWhereGridIsNotCreated() {
-        GridPlateauFactory gridPlateauFactory = new GridPlateauFactory();
         GridPlateau gridPlateau = new GridPlateau(null);
         assertEquals(0, gridPlateau.getLength());
     }

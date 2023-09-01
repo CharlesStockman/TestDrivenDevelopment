@@ -23,10 +23,10 @@ public class MoveCommand implements CommandInterface<RoverData> {
         movements.put(CompassPoint.W, Position::moveHorizontalLeft);
     }
 
-    private final String commandName = "M";
-
     @Override
     public RoverData execute(RoverData roverData) {
+
+        final String commandName = "M";
 
         Position newPosition = movements.get(roverData.getCompassPoint()).apply(roverData.getPosition()).wrap(
                 roverData.getGridPlateau().getLength(), roverData.getGridPlateau().getWidth());

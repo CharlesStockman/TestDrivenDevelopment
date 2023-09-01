@@ -16,7 +16,7 @@ import static java.lang.Boolean.TRUE;
 
 public class Rover {
 
-    private GridPlateau gridPlateau;
+    private final GridPlateau gridPlateau;
 
     private final Logger logger;
 
@@ -25,8 +25,8 @@ public class Rover {
         logger = (new MyLogger()).getLogger(Level.ALL);
     }
 
-    public String displayCoordinatesAndDirection(CompassPoint compassPoint, Position position, Boolean isObstructured) {
-        return String.format("%s%d:%d:%s", ((isObstructured == TRUE ) ? "O:" : ""),  position.getX(), position.getY(), compassPoint);
+    public String displayCoordinatesAndDirection(CompassPoint compassPoint, Position position, Boolean isObstructed) {
+        return String.format("%s%d:%d:%s", ((isObstructed == TRUE ) ? "O:" : ""),  position.getX(), position.getY(), compassPoint);
     }
 
     public String executeInstructionsForRover(String commandString, CompassPoint compassPoint, Position position) {
@@ -44,11 +44,11 @@ public class Rover {
         (new StartCommand(Character.MIN_VALUE, initialRoverData)).execute();
         commandString = (new ValidateCommand(commandString)).execute();
         RoverData roverData = (new ExecuteCommands(commandString, initialRoverData)).execute();
-        logger.info("validated and fixed rover command string -- " + commandString + "\n");
+        logger.fine("validated and fixed rover command string -- " + commandString + "\n");
 
-
+        logger.fine("Commands Executed...\n");
         List<History.Event> events = History.getInstance().getHistory();
-        events.forEach( (History.Event event) -> logger.info(event.toString() + "\n"));
+        events.forEach( (History.Event event) -> logger.info("\t" + event.toString() + "\n"));
 
         String result =  displayCoordinatesAndDirection(roverData.getCompassPoint(), roverData.getPosition(), roverData.getIsObstructed());
         logger.info("Final Compass Point and Grid Coordinates -- " + result +"\n");

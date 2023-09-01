@@ -1,7 +1,5 @@
 package rover.CommandPatterns.internalCommands;
 
-import lombok.extern.java.Log;
-
 import java.security.InvalidParameterException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

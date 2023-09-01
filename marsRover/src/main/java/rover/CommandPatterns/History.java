@@ -57,7 +57,6 @@ public class History {
             this.command = ( command.charAt(0) == Character.MIN_VALUE ) ? "Start Data" : command;
             this.direction = direction;
             this.position = position;
-            //this.finalPositionAndDirection = displayCoordinatesAndDirection(position, direction);
         }
 
     }
