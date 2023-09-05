@@ -48,7 +48,6 @@ public class Rover {
         logger.fine("Commands Executed...");
         logger.fine("validated and fixed rover command string -- " + commandString + "\n");
 
-
         List<History.Event> events = History.getInstance().getHistory();
         events.forEach( ( History.Event eventData) -> logger.info(eventData.toString() + "\n"));
 

@@ -23,4 +23,11 @@ public class RoverData {
 
     // The Grid that the rover transverses
     GridPlateau gridPlateau;
+
+    public RoverData(CompassPoint compassPoint, Position position, GridPlateau gridPlateau) {
+        this.compassPoint = compassPoint;
+        this.position = position;
+        this.gridPlateau = gridPlateau;
+        this.isObstructed = false;
+    }
 }

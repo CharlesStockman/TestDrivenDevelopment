@@ -100,13 +100,13 @@ public class RoverTest {
 
         List<History.Event> expectedEvents = new ArrayList<>();
 
-        RoverData roverData = new RoverData(CompassPoint.N, new Position(0,0), false, null);
+        RoverData roverData = new RoverData(CompassPoint.N, new Position(0,0), null);
         expectedEvents.add(new History.Event( String.valueOf(Character.MIN_VALUE), roverData));
 
-        RoverData roverData2 = new RoverData(CompassPoint.N, new Position(0, 1), false, null);
+        RoverData roverData2 = new RoverData(CompassPoint.N, new Position(0, 1),null);
         expectedEvents.add(new History.Event( "M", roverData2));
 
-        RoverData roverData3 = new RoverData(CompassPoint.W, new Position(0,1), false, null );
+        RoverData roverData3 = new RoverData(CompassPoint.W, new Position(0,1), null );
         expectedEvents.add(new History.Event( "L", roverData3 ));
 
         List<History.Event> actualEvents = History.getInstance().getHistory();
