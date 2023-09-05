@@ -1,5 +1,6 @@
 package gridPlateau;
 
+import rover.GridPlateauTestFactory;
 import utilities.Position;
 import utilities.Terrain;
 import org.junit.jupiter.api.Assertions;
@@ -7,6 +8,8 @@ import org.junit.jupiter.api.Test;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -170,5 +173,30 @@ public class GridPlateauTest {
         GridPlateau gridPlateau = gridPlateauFactory.initialize(10,10);
         gridPlateau.setTile(new Position(3,5), Terrain.Obstructed.name());
         assertEquals(true, gridPlateau.isCellObstructed(new Position(3,5)));
+    }
+
+    @Test
+    public void gradientPlateauPart1() {
+        GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_no_obstructions();
+        String title = "Gradient Plateau : ";
+        Pattern pattern = Pattern.compile("^" + title);
+        Matcher match = pattern.matcher(gridPlateau.toString());
+        Assertions.assertTrue(match.find());
+    }
+
+    @Test
+    public void gradientPlateauPart2() {
+        GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_no_obstructions();
+        String title = "Gradient Plateau : ";
+        Matcher match = Pattern.compile("shape\\(10x10\\)").matcher(gridPlateau.toString());
+        Assertions.assertTrue(match.find());
+    }
+
+
+    @Test
+    public void gradientPlateauPart3() {
+        GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_no_obstructions();
+        String title = "Gradient Plateau : ";
+        Assertions.assertTrue(Pattern.compile("Normal:100 and Obstructed:0").matcher(gridPlateau.toString()).find());
     }
 }

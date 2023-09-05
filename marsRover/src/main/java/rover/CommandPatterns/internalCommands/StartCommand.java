@@ -11,19 +11,17 @@ import rover.RoverData;
 public class StartCommand implements CommandInterface<Boolean> {
 
     Character command;
-    CompassPoint compassPoint;
-    Position position;
 
+    RoverData roverData;
     public StartCommand(Character command, RoverData initialRoverData) {
         this.command = command;
-        this.compassPoint = initialRoverData.getCompassPoint();
-        this.position = initialRoverData.getPosition();
+        this.roverData = initialRoverData;
     }
 
     @Override
     public Boolean execute() {
         History.getInstance().clearHistory();
-        addEventHistory(String.valueOf(Character.MIN_VALUE), compassPoint, position, "");
+        addEventHistory(String.valueOf(Character.MIN_VALUE), roverData);
         return true;
     }
 }

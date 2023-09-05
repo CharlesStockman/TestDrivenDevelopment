@@ -13,8 +13,8 @@ import rover.RoverData;
 public interface CommandInterface<T> {
      T  execute(RoverData roverData);
 
-    default void addEventHistory(String command, CompassPoint compassPoint, Position position, String otherInformation) {
-        History.getInstance().addEvent(command, compassPoint, position);
+    default void addEventHistory(String command, RoverData roverData) {
+        History.getInstance().addEvent(command, roverData);
     }
 
     default RoverData create(CompassPoint compassPoint, Position position, Boolean isObstructed, GridPlateau gridPlateau) {

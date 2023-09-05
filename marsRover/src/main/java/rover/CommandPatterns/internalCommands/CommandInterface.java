@@ -1,5 +1,6 @@
 package rover.CommandPatterns.internalCommands;
 
+import rover.RoverData;
 import utilities.Position;
 import rover.CommandPatterns.History;
 import rover.CompassPoint;
@@ -11,7 +12,7 @@ import rover.CompassPoint;
 public interface CommandInterface<T> {
      T  execute();
 
-    default void addEventHistory(String command, CompassPoint compassPoint, Position position, String otherInformation) {
-        History.getInstance().addEvent(command, compassPoint, position);
+    default void addEventHistory(String command, RoverData roverData) {
+        History.getInstance().addEvent(command, roverData);
     }
 }

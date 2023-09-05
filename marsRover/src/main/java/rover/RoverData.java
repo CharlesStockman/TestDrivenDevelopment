@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Value;
 
 /**
- * An immuatable class containing the current state of the rover
+ * An immutable class containing the current state of the rover
  */
 @Value
 @AllArgsConstructor

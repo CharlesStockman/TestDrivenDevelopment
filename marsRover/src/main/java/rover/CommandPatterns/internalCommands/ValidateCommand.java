@@ -7,7 +7,8 @@ import java.util.regex.Pattern;
 /**
  * The command used to validate that the command in the Command Rover String are valid.
  */
-public class ValidateCommand implements CommandInterface<String> {
+public class
+ValidateCommand implements CommandInterface<String> {
 
     private String input;
 

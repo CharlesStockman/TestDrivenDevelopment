@@ -31,11 +31,10 @@ public class History {
      * One event from the history list
      *
      * @param command               The command for the event being logged
-     * @param compassPoint          The final direction of the rover for the event being logged.
-     * @param position              The final position of the rove from the @Link { gridPlateau.GridPlateau }
+     & @param roverData             The state of the Rover including direction and position
      */
-    public void addEvent(String command, CompassPoint compassPoint, Position position) {
-        RoverData roverData = new RoverData(compassPoint, position, false, null);
+    public void addEvent(String command, RoverData inRoverData) {
+        RoverData roverData = inRoverData;
         Event event = new Event(command, roverData);
         eventList.add(event);
     }
