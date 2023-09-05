@@ -5,7 +5,6 @@ import utilities.Terrain;
 import lombok.Value;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
@@ -44,7 +43,7 @@ public class GridPlateau {
     public String toString() {
 
         Map<String, Long> counts =  Arrays.stream(grid).flatMap(
-                string -> Stream.of(string)).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+                Stream::of).collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
         for ( Terrain terrain : Terrain.values() ) {
             if ( counts.containsKey(terrain.name()) == false ) {
                 counts.put(terrain.name(), 0L);
@@ -54,8 +53,7 @@ public class GridPlateau {
         long normal = counts.get(Terrain.Normal.name());
         long obstructed = counts.get(Terrain.Obstructed.name());
 
-        String str = new String("");
-        str = String.format("Gradient Plateau : shape(%dx%d) ", this.getWidth(), this.getLength());
+        String str = String.format("Gradient Plateau : shape(%dx%d) ", this.getWidth(), this.getLength());
         str = str + String.format("totals Normal:%d and Obstructed:%d", normal, obstructed);
         return str;
     }

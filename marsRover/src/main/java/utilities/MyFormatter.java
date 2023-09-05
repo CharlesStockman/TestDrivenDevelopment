@@ -11,10 +11,9 @@ public class MyFormatter extends SimpleFormatter {
     @Override
     public String format(LogRecord record) {
 
-        StringBuilder builder = new StringBuilder();
-        builder.append(record.getSourceClassName()).append(".").append(record.getSourceMethodName());
-        builder.append(" : ").append(record.getMessage());
+        String builder = record.getSourceClassName() + "." + record.getSourceMethodName() +
+                " : " + record.getMessage();
 
-        return(builder.toString());
+        return(builder);
     }
 }

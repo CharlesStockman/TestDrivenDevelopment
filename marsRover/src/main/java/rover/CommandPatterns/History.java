@@ -1,10 +1,7 @@
 package rover.CommandPatterns;
 
-import gridPlateau.GridPlateau;
 import rover.RoverData;
-import utilities.Position;
 import lombok.Data;
-import rover.CompassPoint;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +30,7 @@ public class History {
      * @param command               The command for the event being logged
      & @param roverData             The state of the Rover including direction and position
      */
-    public void addEvent(String command, RoverData inRoverData) {
-        RoverData roverData = inRoverData;
+    public void addEvent(String command, RoverData roverData) {
         Event event = new Event(command, roverData);
         eventList.add(event);
     }

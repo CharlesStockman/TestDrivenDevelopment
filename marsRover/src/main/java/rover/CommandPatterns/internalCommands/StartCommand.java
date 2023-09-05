@@ -1,7 +1,5 @@
 package rover.CommandPatterns.internalCommands;
 
-import utilities.Position;
-import rover.CompassPoint;
 import rover.CommandPatterns.History;
 import rover.RoverData;
 

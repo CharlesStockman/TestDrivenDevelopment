@@ -187,7 +187,6 @@ public class GridPlateauTest {
     @Test
     public void gradientPlateauPart2() {
         GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_no_obstructions();
-        String title = "Gradient Plateau : ";
         Matcher match = Pattern.compile("shape\\(10x10\\)").matcher(gridPlateau.toString());
         Assertions.assertTrue(match.find());
     }
@@ -196,7 +195,6 @@ public class GridPlateauTest {
     @Test
     public void gradientPlateauPart3() {
         GridPlateau gridPlateau = GridPlateauTestFactory.create_standard_grid_with_no_obstructions();
-        String title = "Gradient Plateau : ";
         Assertions.assertTrue(Pattern.compile("Normal:100 and Obstructed:0").matcher(gridPlateau.toString()).find());
     }
 }
