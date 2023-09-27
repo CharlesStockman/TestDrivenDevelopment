@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ExpressionEvaluatorTest {
 
@@ -11,6 +14,12 @@ public class ExpressionEvaluatorTest {
     public void handle_input_is_empty_string() throws IOException {
         ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
         Assertions.assertEquals(0, expressionEvaluator.add(""));
+    }
+
+    @Test
+    public void verify_antlr_g4_exist() {
+        Path path = Paths.get("src/main/antlr4/org/example");
+        Assertions.assertTrue(Files.exists(path));
     }
 
 //    @Test
