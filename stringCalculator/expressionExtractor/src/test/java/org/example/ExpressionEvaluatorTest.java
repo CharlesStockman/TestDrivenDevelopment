@@ -4,9 +4,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+<<<<<<< HEAD
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+=======
+>>>>>>> pom_additions
 
 public class ExpressionEvaluatorTest {
 
@@ -16,12 +19,15 @@ public class ExpressionEvaluatorTest {
         Assertions.assertEquals(0, expressionEvaluator.add(""));
     }
 
+<<<<<<< HEAD
     @Test
     public void verify_antlr_g4_exist() {
         Path path = Paths.get("src/main/antlr4/org/example");
         Assertions.assertTrue(Files.exists(path));
     }
 
+=======
+>>>>>>> pom_additions
 //    @Test
 //    public void handle_input_is_comma() throws IOException {
 //        StringCalculator stringCalculator = new StringCalculator();

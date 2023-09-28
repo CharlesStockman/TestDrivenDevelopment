@@ -12,6 +12,19 @@
   <url>http://maven.apache.org</url>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr-runtime</artifactId>
+      <version>3.5.3</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr4-maven-plugin</artifactId>
+      <version>4.5</version>
+    </dependency>
+
     <!-- Dependencies for JUnit -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -19,6 +32,7 @@
       <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
+
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-commons</artifactId>
@@ -33,6 +47,7 @@
       <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>

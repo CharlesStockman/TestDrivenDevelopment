@@ -1,13 +1,8 @@
 grammar Expression;
 
- /*
-  * Lexer Rules
-  */
+ // Lexer Rules
 NUMBER: [0-9]+;
 
- /*
-  * Parser
-  */
-
+ // Parser
 expression : NUMBER;
 
