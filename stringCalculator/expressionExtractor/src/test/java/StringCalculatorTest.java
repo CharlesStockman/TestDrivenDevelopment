@@ -4,6 +4,9 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.InvalidParameterException;
 import java.security.KeyStore;
 import java.util.ArrayList;
@@ -17,6 +20,18 @@ public class StringCalculatorTest {
     public void handle_input_is_empty_string() throws IOException {
         ExpressionEvaluator expressinEvaluator = new ExpressionEvaluator();
         Assertions.assertEquals(0, expressinEvaluator.add(""));
+    }
+
+    @Test
+    public void verify_exist_antlr_g4() {
+        Path path = Paths.get("src/main/antlr4/org/example/Expression.g4");
+        Assertions.assertTrue(Files.exists(path));
+    }
+
+    @Test
+    public void verify_exist_antlr4_generated_code() {
+        Path path = Paths.get("target/generated-sources/antlr4/org/example/ExpressionBaseListener.java");
+        Assertions.assertTrue(Files.exists(path));
     }
 
 //    @Test
