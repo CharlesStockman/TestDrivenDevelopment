@@ -32,10 +32,7 @@
       <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
-<<<<<<< HEAD
-=======
 
->>>>>>> pom_additions
     <dependency>
       <groupId>org.junit.platform</groupId>
       <artifactId>junit-platform-commons</artifactId>
@@ -50,10 +47,6 @@
       <version>5.9.2</version>
       <scope>test</scope>
     </dependency>
-<<<<<<< HEAD
-=======
-
->>>>>>> pom_additions
   </dependencies>
 
   <build>
