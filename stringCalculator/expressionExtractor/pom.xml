@@ -14,9 +14,9 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.antlr</groupId>
-      <artifactId>antlr4</artifactId>
-      <version>4.13.0</version>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>6.0.9</version>
     </dependency>
 
     <dependency>
@@ -28,9 +28,16 @@
 
     <dependency>
       <groupId>org.antlr</groupId>
+      <artifactId>antlr4</artifactId>
+      <version>4.13.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.antlr</groupId>
       <artifactId>antlr4-maven-plugin</artifactId>
       <version>4.5</version>
     </dependency>
+
     <!-- Dependencies for JUnit -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
