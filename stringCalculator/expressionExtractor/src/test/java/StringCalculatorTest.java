@@ -2,6 +2,7 @@ import org.example.ExpressionEvaluator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.ReflectionUtils;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,6 +33,12 @@ public class StringCalculatorTest {
     public void verify_exist_antlr4_generated_code() {
         Path path = Paths.get("target/generated-sources/antlr4/org/example/ExpressionBaseListener.java");
         Assertions.assertTrue(Files.exists(path));
+    }
+
+    @Test
+    public void verify_private_method_changed_into_public_method() {
+        ExpressionEvaluator expressionEvaluator = new ExpressionEvaluator();
+        ReflectionUtils.invokeMethod(expressionEvaluator, "lexer");
     }
 
 //    @Test
