@@ -10,7 +10,7 @@ class Word():
     def __post_init__(self):
         self.sort_index = self.key
 
-def word_table_from_file(file_name:str) -> list[str] :
+def word_table_from_file_sorted_by_id(file_name:str) -> list[str] :
     """_summary_
 
     Args:
