@@ -12,6 +12,8 @@ class Word():
 
 def word_table_from_file_sorted_by_id(file_name:str) -> list[str] :
     """_summary_
+    
+        Crate a list of the index and word pairs.
 
     Args:
         file_name (str): _description_  The file name that will contains the primary key and word for each row in the table
@@ -28,3 +30,26 @@ def word_table_from_file_sorted_by_id(file_name:str) -> list[str] :
     
     results.sort()
     return results
+
+def create_list_with_right_indexs(length_of_word_database:int) -> list[int]:
+    """_summary_
+
+    Args:
+        length_of_word_database (int): _description_    The number of elements the pyriamd has total
+
+    Returns:
+        list[int]: _description_    A list of all the far right elements in the pyriamnd 
+    """    
+    index = 1;
+    total = 0;
+    indexes = [] 
+    
+    while ( total < length_of_word_database):
+        total = total + index
+        indexes.append(total)
+        
+        index = index + 1       
+        
+    indexes = [ value - 1 for value in indexes ]
+
+    return indexes
