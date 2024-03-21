@@ -21,7 +21,7 @@ class TestProgram(unittest.TestCase):
     result_list.append(Word(5, "you"))
     result_list.append(Word(6, "computers"))
         
-    actual_list = workProgram.word_table_from_file("data.txt")
+    actual_list = workProgram.word_table_from_file_sorted_by_id("data.txt")
     
     for index in range(0,6):
         self.assertTrue(actual_list[index].key == result_list[index].key)
@@ -29,6 +29,8 @@ class TestProgram(unittest.TestCase):
                 
 if ( __name__ == "__main__"):
     unittest.main()
+    
+
  
     
     
