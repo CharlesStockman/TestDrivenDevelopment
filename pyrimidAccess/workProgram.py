@@ -3,7 +3,7 @@ from dataclasses import dataclass, field
 
 @dataclass(order=True)
 class Word():
-    sort_index: int = field(init=False, repr=True)
+    sort_index: int = field(init=False, repr=False)
     key: int = field(init=True, repr=True)
     word: str
     
