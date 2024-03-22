@@ -50,6 +50,14 @@ class TestProgram(unittest.TestCase):
     actual_string = workProgram.create_sentence(word_list, index_list)
     self.assertEqual(result_string, actual_string)
     
+   def do(self):
+       filename = "data.txt"
+       result_string = "I love computers"
+       
+       actual_stirng = workProgram.do(filename)
+       self.assertEqual(result_string, actual_stirng)
+       
+    
     
                 
 if ( __name__ == "__main__"):

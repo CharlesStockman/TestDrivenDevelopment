@@ -70,3 +70,16 @@ def create_sentence(words:list[dataclass], indexes:list[int]) -> str:
     result = [ words[index].word + ' ' for index in indexes ]
     result = ''.join(result).strip()
     return result
+
+def do(filename:str) -> str:
+    """ A facade pattern that cobines all the the part together to create a sentence.
+
+    Args:
+        filename (str): The filename where the index/words tuples are located
+
+    Returns:
+        str: The sentecnec created
+    """    
+    word_table = word_table_from_file_sorted_by_id(filename)
+    sentence = create_sentence(word_table, create_list_with_right_indexs(len(word_table)))
+    return sentence
