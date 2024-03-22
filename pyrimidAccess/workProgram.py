@@ -2,7 +2,7 @@ import re
 from dataclasses import dataclass, field
 
 def word_table_from_file_sorted_by_id(file_name:str) -> list[str] :
-    """_summary_
+    """
     
         Crate a list of the index and word pairs.
 
@@ -22,7 +22,7 @@ def word_table_from_file_sorted_by_id(file_name:str) -> list[str] :
     return results
 
 def create_list_with_right_indexs(length_of_word_database:int) -> list[int]:
-    """_summary_
+    """
 
     Args:
         length_of_word_database (int): The number of elements in the pyramid total
@@ -30,8 +30,8 @@ def create_list_with_right_indexs(length_of_word_database:int) -> list[int]:
     Returns:
         list[int]: A list of all last elements of each line of the pyramid
     """    
-    index = 1;
-    total = 0;
+    index = 1
+    total = 0
     indexes = [] 
     
     # Get the list of last element in each line of the pyramid as a base 1 index
