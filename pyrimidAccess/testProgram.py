@@ -34,6 +34,23 @@ class TestProgram(unittest.TestCase):
     
     actual_index_list = workProgram.create_list_with_right_indexs(length_of_word_database)
     self.assertListEqual(result_index_list, actual_index_list)
+    
+   def test_create_string(self):
+    word_list = []
+    word_list.append(Word(1, "I"))
+    word_list.append(Word(2, "dogs"))
+    word_list.append(Word(3, "love"))
+    word_list.append(Word(4, "cats"))
+    word_list.append(Word(5, "you"))
+    word_list.append(Word(6, "computers"))
+    
+    index_list = [0, 2, 5]
+    
+    result_string = "I love computers"
+    actual_string = workProgram.create_sentence(word_list, index_list)
+    self.assertEqual(result_string, actual_string)
+    
+    
                 
 if ( __name__ == "__main__"):
     unittest.main()
